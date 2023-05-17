@@ -1,6 +1,6 @@
-import { hideTabindexes, showTabindexes } from './functions';
+import { hideTabindexes, showTabindexes } from './functions.js';
 
-interface IParams {
+export interface IParams {
   triggerQuery: string,
   menuId: string
 }
@@ -17,7 +17,7 @@ class Burger {
     this.triggerQuery = triggerQuery;
   }
 
-  init(): boolean {
+  init() {
     this._ready = true;
 
     const triggers = document.querySelectorAll(this.triggerQuery);
@@ -41,10 +41,10 @@ class Burger {
 
 
 
-    return this._ready;
+    return;
   }
 
-  call(e: React.MouseEvent<HTMLButtonElement>): boolean {
+  call(e: React.MouseEvent<HTMLButtonElement>) {
     if (!this._ready) {
       throw new Error('UVC Burger is not initialized.')
     }
@@ -79,7 +79,7 @@ class Burger {
       menu.classList.remove(`uvc-burger-menu--active`);
     }
 
-    return this._ready;
+    return;
   }
 }
 
