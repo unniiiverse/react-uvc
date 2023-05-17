@@ -54,7 +54,7 @@ class Burger {
     const isOpened = !self.classList.contains(`uvc-burger-trigger--active`);
 
     if (isOpened) {
-      hideTabindexes(/uvc-burger-trigger|uvc-burger-btn/gi);
+      hideTabindexes(/uvc-burger-trigger|uvc-ti-ignore/gi);
       document.documentElement.setAttribute('style', 'overflow: hidden')
 
       document.querySelectorAll(this.triggerQuery).forEach(el => {

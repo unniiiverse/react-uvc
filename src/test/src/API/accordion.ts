@@ -1,10 +1,10 @@
-interface IAccordionProps {
+export interface IParams {
   parent: string
   initialOpen?: string | null,
   singleOpen?: boolean,
 }
 
-const AccordionPropsDefault: IAccordionProps = {
+const AccordionPropsDefault: IParams = {
   parent: 'uvc-accordion',
   initialOpen: null,
   singleOpen: false,
@@ -18,7 +18,7 @@ class Accordion {
   private ready: boolean;
   private instanceID = String((Math.random() * 1000)).split('.')[0]
 
-  constructor(props: IAccordionProps) {
+  constructor(props: IParams) {
     this.ready = false;
     this.parent = AccordionPropsDefault.parent
 

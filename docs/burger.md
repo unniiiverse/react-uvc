@@ -1,5 +1,5 @@
 # UVC-Burger
-Burger-menu component. On open change all tabindexes (except triggers) to -1. Set overflow in html tag to hidden.
+Burger-menu component. On open change all tabindexes (except triggers) to -1 (Ignores tabindex nodes with .uvc-ti-ignore). Set overflow in html tag to hidden.
 
 ## Usage
 Import and initialize component.
@@ -9,7 +9,7 @@ import { Burger } from 'react-uvc';
 
 const Component: React.FC = () => {
   const instance = new Burger({
-    triggerQuery: '.uvc-test-burger_TRIGGER-CLASS',
+    triggerQuery: 'uvc-burger-trigger',
     menuId: 'uvc-test-burger_MENU-ID'
   });
 
@@ -22,12 +22,12 @@ const Component: React.FC = () => {
 Create layout.
 ```tsx
 <>
-  <button className="uvc-burger-trigger uvc-test-burger_TRIGGER-CLASS" onClick={e => instance.call(e)}>
+  <button className="uvc-burger-trigger" onClick={e => instance.call(e)}>
     TRIGGER
   </button>
 
   <div id="uvc-test-burger_MENU-ID">
-    <button className="uvc-burger-trigger uvc-test-burger_TRIGGER-CLASS" onClick={e => instance.call(e)}>
+    <button className="uvc-burger-trigger" onClick={e => instance.call(e)}>
       TRIGGER
     </button>
   </div>
