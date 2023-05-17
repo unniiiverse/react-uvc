@@ -1,5 +1,6 @@
 import Burger, { IParams as IBurgerParams } from './burger.js';
 import Accordion, { IParams as IAccordionParams } from './accordion.js';
+import Popup, { IParams as IPopupParams } from './popup.js';
 
 export declare class Burger {
   readonly instanceID: number;
@@ -17,4 +18,11 @@ export declare class Accordion {
   call(e: React.MouseEvent<HTMLButtonElement>): void;
 }
 
-export { Accordion, Burger }
+export declare class Popup {
+  constructor(props: IPopupParams);
+  init(): void;
+  open(): void;
+  close(e: React.MouseEvent<HTMLElement>): void;
+}
+
+export { Accordion, Burger, Popup }

@@ -44,7 +44,7 @@ class Burger {
     return;
   }
 
-  call(e: React.MouseEvent<HTMLButtonElement>) {
+  toggle(e: React.MouseEvent<HTMLButtonElement>) {
     if (!this._ready) {
       throw new Error('UVC Burger is not initialized.')
     }

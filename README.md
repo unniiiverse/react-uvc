@@ -1,4 +1,4 @@
-# UVC 1.1.4
+# UVC
 Bundle of unniiiverse components for react written on typescript.
 
 UVC provides components and features listed below:

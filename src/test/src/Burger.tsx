@@ -14,12 +14,12 @@ const Burger: React.FC = (props) => {
 
   return (
     <>
-      <button className="uvc-burger-trigger uvc-burger-trigger-MYOWNCLASS" onClick={e => instance.call(e)}>
+      <button className="uvc-burger-trigger uvc-burger-trigger-MYOWNCLASS" onClick={e => instance.toggle(e)}>
         TRIGGER
       </button>
 
       <div className="uvc-burger-menu bg-red-400" id="uvc-burger-trigger-MYOWNID">
-        <button className="uvc-burger-trigger uvc-burger-trigger-MYOWNCLASS" onClick={e => instance.call(e)}>
+        <button className="uvc-burger-trigger uvc-burger-trigger-MYOWNCLASS" onClick={e => instance.toggle(e)}>
           TRIGGER
         </button>
       </div>

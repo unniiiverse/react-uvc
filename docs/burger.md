@@ -22,12 +22,12 @@ const Component: React.FC = () => {
 Create layout.
 ```tsx
 <>
-  <button className="uvc-burger-trigger" onClick={e => instance.call(e)}>
+  <button className="uvc-burger-trigger" onClick={e => instance.toggle(e)}>
     TRIGGER
   </button>
 
   <div id="uvc-test-burger_MENU-ID">
-    <button className="uvc-burger-trigger" onClick={e => instance.call(e)}>
+    <button className="uvc-burger-trigger" onClick={e => instance.toggle(e)}>
       TRIGGER
     </button>
   </div>
@@ -42,7 +42,7 @@ const instance = new Burger({
 });
 
 instance.init() // One time initialization.
-instance.call(e: React.MouseEvent<HTMLButtonElement>) // Change burger visibility.
+instance.toggle(e: React.MouseEvent<HTMLButtonElement>) // Change burger visibility.
 ```
 
 ```scss
