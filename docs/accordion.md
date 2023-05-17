@@ -6,6 +6,7 @@ Import and initialize component.
 ```tsx
 import React, { useEffect } from 'react';
 import { Accordion } from 'react-uvc';
+import 'react-uvc/styles/accordion.css'; // Optional
 
 const Component: React.FC = () => {
   const instance = new Accordion({

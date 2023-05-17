@@ -6,6 +6,7 @@ Import and initialize component.
 ```tsx
 import React, { useEffect } from 'react';
 import { Burger } from 'react-uvc';
+import 'react-uvc/styles/burger.css'; // Optional
 
 const Component: React.FC = () => {
   const instance = new Burger({
