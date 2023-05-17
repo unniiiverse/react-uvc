@@ -1,5 +1,5 @@
-# UVC-Tabs
-Tabs component.
+# UVC-Accordion
+Accordion component.
 
 ## Usage
 

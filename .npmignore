@@ -1,1 +1,6 @@
 src/test
+tsconfig.json
+nodemon.json
+.eslintrc
+.eslintignore
+.git

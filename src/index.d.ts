@@ -1,18 +1,20 @@
-import { IParams as IBurgerParams } from './burger.js';
-import { IParams as IAccordionParams } from './accordion.js';
+import Burger, { IParams as IBurgerParams } from './burger.js';
+import Accordion, { IParams as IAccordionParams } from './accordion.js';
 
-declare module 'react-uvc' {
-  export class Burger {
-    constructor(): IBurgerParams
+export declare class Burger {
+  readonly instanceID: number;
+  readonly triggerQuery: string;
+  readonly menuId: string;
 
-    init();
-    call(e: React.MouseEvent<HTMLButtonElement>);
-  }
-
-  export class Accordion {
-    constructor(): IAccordionParams
-
-    init();
-    call(e: React.MouseEvent<HTMLButtonElement>);
-  }
+  constructor(params: IBurgerParams);
+  init(): void;
+  call(e: React.MouseEvent<HTMLButtonElement>): void;
 }
+
+export declare class Accordion {
+  constructor(props: IAccordionParams);
+  init(): void;
+  call(e: React.MouseEvent<HTMLButtonElement>): void;
+}
+
+export { Accordion, Burger }

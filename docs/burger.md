@@ -1,5 +1,5 @@
-# UVC-Tabs
-Tabs component.
+# UVC-Burger
+Burger component.
 
 ## Usage
 
