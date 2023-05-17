@@ -1,0 +1,94 @@
+.uvc {
+  &-accordion {
+    &-content {
+      max-height: 0;
+      opacity: 0;
+      visibility: hidden;
+      transition: .2s ease-in-out all;
+      padding: 8px 0;
+  
+      &--open {
+        opacity: 1;
+        visibility: visible;
+      }
+    }
+  }
+
+  &-popup {
+    &-dialog {
+      cursor: default;
+
+      display: none;
+
+      &--open {
+        display: block;
+      }
+    }
+
+    &-layer {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100vw;
+      height: 100vh;
+      z-index: 10000;
+      background-color: rgba($color: #000000, $alpha: .6);
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
+      gap: 32px;
+      cursor: pointer;
+    
+      transition: .2s ease-in-out;
+      opacity: 0;
+      visibility: hidden;
+  
+      &--open {
+        opacity: 1;
+        visibility: visible;
+      }
+    }
+  }
+
+  &-burger {
+    &-menu {
+      position: fixed;
+      top: 0;
+      right: 0;
+      z-index: 10000;
+      width: 100vw;
+      height: 100vh;
+      background-color: #fff;
+
+      opacity: 0;
+      visibility: hidden;
+      transition: .2s ease-in-out;
+    }
+  }
+}
+
+//
+
+.uvc {
+  &-popup {
+    &-dialog_wrapper {
+      background-color: #fff;
+      padding: 24px 16px;
+      border-radius: 4px;
+      min-width: 400px;
+      display: flex;
+      justify-content: space-between;
+    }
+  }
+
+  &-burger-general--0 {
+    &-menu {
+      &--open {
+        background-color: red;
+        opacity: 1;
+        visibility: visible;
+      }
+    }
+  }
+}
