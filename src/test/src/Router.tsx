@@ -5,6 +5,7 @@ import BurgerC from "./Burger";
 import Home from "./Home";
 import PopupC from "./Popup";
 import TabsC from "./Tabs";
+import Page from "./Page";
 
 export const paths = {
   home: '/',
@@ -13,6 +14,7 @@ export const paths = {
   accordionTest: '/accordionTest',
   tabs: '/tabs',
   popup: '/popup',
+  page: '/page'
 }
 
 export const routes = [
@@ -20,7 +22,8 @@ export const routes = [
   { path: paths.burger, Component: BurgerC },
   { path: paths.accordion, Component: Accordion },
   { path: paths.tabs, Component: TabsC },
-  { path: paths.popup, Component: PopupC }
+  { path: paths.popup, Component: PopupC },
+  { path: paths.page, Component: Page },
 ]
 
 const Router: React.FC = (props) => {

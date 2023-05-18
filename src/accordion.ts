@@ -10,7 +10,7 @@ const AccordionPropsDefault: IParams = {
   singleOpen: false,
 }
 
-class Accordion {
+export class Accordion {
   private parent: string;
   private initialOpen?: string | null;
   private singleOpen?: boolean;

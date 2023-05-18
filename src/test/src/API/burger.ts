@@ -5,7 +5,7 @@ export interface IParams {
   menuId: string
 }
 
-class Burger {
+export class Burger {
   private _ready = false;
   readonly instanceID = (Math.random() * 100);
   readonly triggerQuery: string;

@@ -4,7 +4,7 @@ export interface IParams {
   id: string,
 }
 
-class Popup {
+export class Popup {
   private _ready = false;
   readonly instanceID = (Math.random() * 100);
   readonly id: string
