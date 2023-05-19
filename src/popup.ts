@@ -64,6 +64,7 @@ export class Popup {
     document.documentElement.setAttribute('style', 'overflow: hidden')
   }
 
+  // @ts-expect-error React lib is not installed here but uses its types
   close(e: React.MouseEvent<HTMLElement>) {
     const self = (e.target as HTMLElement)!;
     const layer = document.querySelector('#uvc-popup-layer')!;

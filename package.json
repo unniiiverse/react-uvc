@@ -1,6 +1,6 @@
 {
   "name": "react-uvc",
-  "version": "1.2.6",
+  "version": "1.2.11",
   "description": "Bundle of UVC react components.",
   "main": "dist/index.js",
   "types": "src/index.d.ts",

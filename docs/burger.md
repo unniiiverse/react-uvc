@@ -27,7 +27,7 @@ Create layout.
     TRIGGER
   </button>
 
-  <div id="uvc-test-burger_MENU-ID">
+  <div id="uvc-test-burger_MENU-ID" className="uvc-burger-menu">
     <button className="uvc-burger-trigger" onClick={e => instance.toggle(e)}>
       TRIGGER
     </button>

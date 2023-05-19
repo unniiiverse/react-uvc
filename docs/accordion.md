@@ -26,14 +26,14 @@ Create layout.
 <>
   // You can split triggers and contents in different tags in .uvc-accordion.
   <div className="uvc-accordion uvc-accordion-ex2">
-    <button className="uvc-accordion-trigger" onClick={e => instance.call(e)}>
+    <button className="uvc-accordion-trigger" onClick={e => instance.toggle(e)}>
       Trigger for #1
     </button>
     <div className="uvc-accordion-content">
       Content #1
     </div>
 
-    <button className="uvc-accordion-trigger" onClick={e => instance.call(e)}>
+    <button className="uvc-accordion-trigger" onClick={e => instance.toggle(e)}>
       Trigger for #2
     </button>
     <div className="uvc-accordion-content">
@@ -57,7 +57,7 @@ const instance = new Accordion({
 */
 
 instance.init() // One time initialization.
-instance.call(e: React.MouseEvent<HTMLButtonElement>) // Open/close accordion item.
+instance.toggle(e: React.MouseEvent<HTMLButtonElement>) // Open/close accordion item.
 ```
 
 ```scss

@@ -1,7 +1,7 @@
 src/test
 src/*.ts
 !src/index.d.ts
-
+src/styles/*.scss
 tsconfig.json
 nodemon.json
 .eslintrc

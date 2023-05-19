@@ -44,6 +44,7 @@ export class Burger {
     return;
   }
 
+  // @ts-expect-error React lib is not installed here but uses its types
   toggle(e: React.MouseEvent<HTMLButtonElement>) {
     if (!this._ready) {
       throw new Error('UVC Burger is not initialized.')

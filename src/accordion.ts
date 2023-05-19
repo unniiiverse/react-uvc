@@ -93,7 +93,8 @@ export class Accordion {
     return
   }
 
-  call(e: React.MouseEvent<HTMLButtonElement>) {
+  // @ts-expect-error React lib is not installed here but uses its types
+  toggle(e: React.MouseEvent<HTMLButtonElement>) {
     if (!this.ready) {
       throw new Error('Component is not initialized.')
     }
