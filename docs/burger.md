@@ -10,7 +10,7 @@ import 'react-uvc/styles/burger.css'; // Optional
 
 const Component: React.FC = () => {
   const instance = new Burger({
-    triggerQuery: 'uvc-burger-trigger',
+    triggerQuery: '.uvc-burger-trigger',
     menuId: 'uvc-test-burger_MENU-ID'
   });
 

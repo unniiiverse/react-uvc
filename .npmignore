@@ -1,4 +1,7 @@
 src/test
+src/*.ts
+!src/index.d.ts
+
 tsconfig.json
 nodemon.json
 .eslintrc
