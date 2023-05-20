@@ -1,6 +1,7 @@
 import { IParams as IBurgerParams } from './burger.js';
 import { IParams as IPopupParams } from './popup.js';
 import { IParams as IAccordionParams } from './accordion.js';
+import { IProps as IBlImageProps } from './blimage.js'
 
 export declare class Burger {
   private _ready: boolean;
@@ -11,7 +12,6 @@ export declare class Burger {
   constructor(params: IBurgerParams)
 
   init(): void;
-  // @ts-expect-error React lib is not installed here but uses its types
   toggle(e: React.MouseEvent<HTMLButtonElement>): void;
 }
 
@@ -24,7 +24,6 @@ export declare class Popup {
 
   init(): void;
   open(): void;
-  // @ts-expect-error React lib is not installed here but uses its types
   close(e: React.MouseEvent<HTMLElement>): void;
 
 }
@@ -40,6 +39,7 @@ export declare class Accordion {
   constructor(params: IAccordionParams)
 
   init(): void;
-  // @ts-expect-error React lib is not installed here but uses its types
   toggle(e: React.MouseEvent<HTMLButtonElement>): void;
 }
+
+export declare const BlImage: React.FC<IBlImageProps>

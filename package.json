@@ -1,6 +1,6 @@
 {
   "name": "react-uvc",
-  "version": "1.2.11",
+  "version": "1.3.0",
   "description": "Bundle of UVC react components.",
   "main": "dist/index.js",
   "types": "src/index.d.ts",
@@ -8,7 +8,11 @@
   "scripts": {
     "dev": "npx nodemon"
   },
-  "keywords": ["uvc", "react", "react-components"],
+  "keywords": [
+    "uvc",
+    "react",
+    "react-components"
+  ],
   "author": "unniiiverse<unniiiverse.github.io>",
   "devDependencies": {
     "@typescript-eslint/eslint-plugin": "^5.54.1",
@@ -22,5 +26,11 @@
   "repository": {
     "type": "git",
     "url": "https://github.com/unniiiverse/react-uvc.git"
+  },
+  "dependencies": {
+    "blurhash": "^2.0.5",
+    "framer-motion": "^10.12.12",
+    "react": "^18.2.0",
+    "react-blurhash": "^0.3.0"
   }
 }
