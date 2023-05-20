@@ -1,7 +1,7 @@
 import { IParams as IBurgerParams } from './burger.js';
 import { IParams as IPopupParams } from './popup.js';
 import { IParams as IAccordionParams } from './accordion.js';
-import { IProps as IBlImageProps } from './blimage.js'
+import { IProps as IBlImageProps } from './blimage.js';
 
 export declare class Burger {
   private _ready: boolean;
@@ -34,7 +34,7 @@ export declare class Accordion {
   private singleOpen?: boolean;
 
   private ready: boolean;
-  private instanceID: string
+  private instanceID: string;
 
   constructor(params: IAccordionParams)
 
@@ -42,4 +42,4 @@ export declare class Accordion {
   toggle(e: React.MouseEvent<HTMLButtonElement>): void;
 }
 
-export declare const BlImage: React.FC<IBlImageProps>
+export declare const BlImage: React.FC<IBlImageProps>;

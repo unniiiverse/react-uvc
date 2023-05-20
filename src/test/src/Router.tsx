@@ -6,6 +6,7 @@ import Home from "./Home";
 import PopupC from "./Popup";
 import TabsC from "./Tabs";
 import Page from "./Page";
+import BlImage from "./BlImage";
 
 export const paths = {
   home: '/',
@@ -14,7 +15,8 @@ export const paths = {
   accordionTest: '/accordionTest',
   tabs: '/tabs',
   popup: '/popup',
-  page: '/page'
+  page: '/page',
+  blimage: '/blimage'
 }
 
 export const routes = [
@@ -24,12 +26,14 @@ export const routes = [
   { path: paths.tabs, Component: TabsC },
   { path: paths.popup, Component: PopupC },
   { path: paths.page, Component: Page },
+  { path: paths.blimage, Component: BlImage },
 ]
 
 const Router: React.FC = (props) => {
   return (
     <Routes>
       {routes.map(({ path, Component }) => {
+        // @ts-ignore
         return <Route path={path} Component={Component} key={`?${path}&${Component}`} />
       })}
       <Route path="/*" element={<Navigate to={paths.home} />} />

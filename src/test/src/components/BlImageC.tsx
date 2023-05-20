@@ -2,7 +2,6 @@ import React, { useState } from 'react';
 import { motion } from 'framer-motion';
 import { Blurhash } from 'react-blurhash';
 import { encode } from 'blurhash';
-import '../src/styles/blimage.css';
 
 const loadImage = async (src: string): Promise<HTMLImageElement> =>
   new Promise((resolve, reject) => {
@@ -50,9 +49,9 @@ export const BlImage: React.FC<IProps> = (props: IProps) => {
 
   return (
     <>
-      <Blurhash hash={hash} className={'blurhash-hash'} width={'100%'} height={'100%'} />
+      <Blurhash hash={hash} className={'blurhash-hash absolute top-0 left-0 z-0 grayscale'} width={'100%'} height={'100%'} />
       <motion.img
-        className={'blurhash-image'}
+        className={'blurhash-image absolute top-0 left-0 z-[1] w-[100%] h-[100%]'}
         onLoad={onLoaded}
         src={src}
         loading="lazy"
@@ -62,8 +61,6 @@ export const BlImage: React.FC<IProps> = (props: IProps) => {
           opacity: { delay: 0.5, duration: 0.4 },
           filter: { delay: 0.5, duration: 0.4 }
         }}
-        width={'100%'}
-        height={'100%'}
       />
     </>
   );
