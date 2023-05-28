@@ -3,7 +3,7 @@ import { IParams as IBurgerParams } from './burger.js';
 import { IParams as IPopupParams } from './popup.js';
 import { IParams as IAccordionParams } from './accordion.js';
 import { IProps as IBlImageProps } from './blimage.js';
-import { IFormValidatorParams, TThrow } from './formValidator.js';
+import { IFormInputRules, IFormValidatorParams, TThrow } from './formValidator.js';
 
 export declare class Burger {
   private _ready: boolean;
@@ -53,7 +53,7 @@ export declare class FormValidator {
   constructor(params: IFormValidatorParams)
 
   init(): void;
-  validate(e: FormEvent): void;
+  validate(e: FormEvent, inputRules: IFormInputRules): void;
 }
 
 export declare const BlImage: React.FC<IBlImageProps>;

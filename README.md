@@ -6,7 +6,7 @@ UVC provides components and features listed below:
 + [Accordion](https://github.com/unniiiverse/react-uvc/tree/main/docs/accordion.md/)
 + [Popup](https://github.com/unniiiverse/react-uvc/tree/main/docs/popup.md/)
 + [Burger](https://github.com/unniiiverse/react-uvc/tree/main/docs/burger.md/)
-+ [Tabs](https://github.com/unniiiverse/react-uvc/tree/main/docs/tabs.md/)
+<!-- + [Tabs](https://github.com/unniiiverse/react-uvc/tree/main/docs/tabs.md/) -->
 + [Blurhash Image](https://github.com/unniiiverse/react-uvc/tree/main/docs/blimage.md/)
 + [Form validator](https://github.com/unniiiverse/react-uvc/tree/main/docs/validator.md/)
 

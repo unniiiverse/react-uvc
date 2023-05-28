@@ -1,9 +1,25 @@
 import { FormEvent } from 'react';
 
-export type TThrow = 'general' | 'underEach';
+export type TThrow = 'general' | 'afterEach';
 export interface IFormValidatorParams {
   throw: TThrow,
   formId: string
+}
+
+export interface IFormInputRules {
+  id: string,
+  minLength?: {
+    val: number,
+    msg?: string
+  },
+  maxLength?: {
+    val: number,
+    msg?: string
+  },
+  notEmpty?: {
+    val: boolean,
+    msg?: string
+  }
 }
 
 export class FormValidator {
@@ -14,7 +30,7 @@ export class FormValidator {
 
   constructor(params: IFormValidatorParams) {
     this.throw = params.throw;
-    this.formId = params.formId
+    this.formId = params.formId;
   }
 
   init() {
@@ -35,7 +51,7 @@ export class FormValidator {
     this._ready = true;
   }
 
-  validate(e: FormEvent) {
+  validate(e: FormEvent, inputRules: Array<IFormInputRules>) {
     if (!this._ready) {
       throw new Error('Uvc-FormValidator is not initialized.')
     }
@@ -51,38 +67,31 @@ export class FormValidator {
 
     inputs.forEach(input => {
       input.classList.remove('uvc-fv-fvError-errorField')
-      const rule = input.getAttribute('data-uvc-fv-rule');
+      const rules = inputRules.find(el => el.id === input.getAttribute('id'));
 
-      if (!rule) {
-        return;
+      function createTemplateMessage(rule: { val: string | boolean | number, msg?: string }, input: HTMLInputElement) {
+        if (!rule.msg) {
+          return undefined;
+        }
+
+        return rule.msg
+          .replace(/{{required}}/gi, `${rule.val}`)
+          .replace(/{{current}}/gi, `${input.value.length}`)
       }
 
-      const rules = rule.split(';');
-
-      rules.forEach(el => {
-        if (!el) {
-          return;
+      for (const rule in rules) {
+        switch (rule) {
+          case 'minLength':
+            if (input.value.length < rules[rule]!.val) throwError(this.throw, parent.querySelector('.uvc-fv-fvErrors')!, input, createTemplateMessage(rules[rule]!, input) || `Minimum length for ${input.getAttribute('name') || input.getAttribute('type')} is ${rules[rule]!.val}. Now ${input.value.length}`);
+            break;
+          case 'maxLength':
+            if (input.value.length > rules[rule]!.val) throwError(this.throw, parent.querySelector('.uvc-fv-fvErrors')!, input, createTemplateMessage(rules[rule]!, input) || `Maximum length for ${input.getAttribute('name') || input.getAttribute('type')} is ${rules[rule]!.val}. Now ${input.value.length}`);
+            break;
+          case 'notEmpty':
+            if (input.value.length === 0) throwError(this.throw, parent.querySelector('.uvc-fv-fvErrors')!, input, createTemplateMessage(rules[rule]!, input) || `Field ${input.getAttribute('name') || input.getAttribute('type')} can not be empty.`);
+            break;
         }
-
-        if (el.split('=').length > 1) {
-          const rule = el.split('=');
-
-          switch (rule[0]) {
-            case 'min':
-              if (input.value.length < +rule[1]) throwError(this.throw, parent.querySelector('.uvc-fv-fvErrors')!, input, `${input.getAttribute('name') || input.getAttribute('type')} validation failed: minimum characters for this field is: ${rule[1]}`)
-              break;
-            case 'max':
-              if (input.value.length > +rule[1]) throwError(this.throw, parent.querySelector('.uvc-fv-fvErrors')!, input, `${input.getAttribute('name') || input.getAttribute('type')} validation failed: maximum characters for this field is: ${rule[1]}`)
-              break;
-          }
-        } else {
-          switch (el) {
-            case 'notEmpty':
-              if (input.value.length === 0) throwError(this.throw, parent.querySelector('.uvc-fv-fvErrors')!, input, `${input.getAttribute('name') || input.getAttribute('type')} validation failed: field must not be empty.`)
-              break;
-          }
-        }
-      })
+      }
     })
   }
 }
