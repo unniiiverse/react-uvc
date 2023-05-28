@@ -7,6 +7,7 @@ import PopupC from "./Popup";
 import TabsC from "./Tabs";
 import Page from "./Page";
 import BlImage from "./BlImage";
+import ValidationForm from "./ValidationForm";
 
 export const paths = {
   home: '/',
@@ -16,7 +17,8 @@ export const paths = {
   tabs: '/tabs',
   popup: '/popup',
   page: '/page',
-  blimage: '/blimage'
+  blimage: '/blimage',
+  validator: '/validator'
 }
 
 export const routes = [
@@ -27,6 +29,7 @@ export const routes = [
   { path: paths.popup, Component: PopupC },
   { path: paths.page, Component: Page },
   { path: paths.blimage, Component: BlImage },
+  { path: paths.validator, Component: ValidationForm },
 ]
 
 const Router: React.FC = (props) => {

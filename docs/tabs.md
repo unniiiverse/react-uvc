@@ -5,6 +5,8 @@ Tabs component.
 
 ## Examples
 
+## API
+
 ## Get it now
 
 <hr>

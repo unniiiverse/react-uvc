@@ -8,7 +8,7 @@ UVC provides components and features listed below:
 + [Burger](https://github.com/unniiiverse/react-uvc/tree/main/docs/burger.md/)
 + [Tabs](https://github.com/unniiiverse/react-uvc/tree/main/docs/tabs.md/)
 + [Blurhash Image](https://github.com/unniiiverse/react-uvc/tree/main/docs/blimage.md/)
-+ [Form validation](https://github.com/unniiiverse/react-uvc/tree/main/docs/validation.md/)
++ [Form validator](https://github.com/unniiiverse/react-uvc/tree/main/docs/validator.md/)
 
 ## Usage
 All usage examples you can see in allocated for this markdown files.

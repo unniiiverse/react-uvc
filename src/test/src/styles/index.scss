@@ -22,4 +22,20 @@
       }
     }
   }
+
+  &-fv {
+    &-fvError {
+      &-errorNode {
+        background-color: red;
+      }
+  
+      &-errorText {
+        color: red;
+      }
+
+      &-errorField {
+        border: 1px solid red;
+      }
+    }
+  }
 }

@@ -1,4 +1,4 @@
-# UVC-BLImage
+# UVC-BlImage
 Blurhash image component.
 
 ## Usage
