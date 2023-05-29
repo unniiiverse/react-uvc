@@ -19,6 +19,14 @@ export interface IFormInputRules {
   notEmpty?: {
     val: boolean,
     msg?: string
+  },
+  match?: {
+    val: RegExp,
+    msg?: string
+  },
+  isEmail?: {
+    val: boolean,
+    msg?: string
   }
 }
 
@@ -66,10 +74,10 @@ export class FormValidator {
     parent.querySelectorAll('.uvc-fv-fvError-errorNode').forEach(el => el.remove())
 
     inputs.forEach(input => {
-      input.classList.remove('uvc-fv-fvError-errorField')
+      input.classList.remove('uvc-fv-fvError-field')
       const rules = inputRules.find(el => el.id === input.getAttribute('id'));
 
-      function createTemplateMessage(rule: { val: string | boolean | number, msg?: string }, input: HTMLInputElement) {
+      function createTemplateMessage(rule: { val: any, msg?: string }, input: HTMLInputElement) {
         if (!rule.msg) {
           return undefined;
         }
@@ -90,6 +98,12 @@ export class FormValidator {
           case 'notEmpty':
             if (input.value.length === 0) throwError(this.throw, parent.querySelector('.uvc-fv-fvErrors')!, input, createTemplateMessage(rules[rule]!, input) || `Field ${input.getAttribute('name') || input.getAttribute('type')} can not be empty.`);
             break;
+          case 'match':
+            if (!input.value.match(rules[rule]!.val)) throwError(this.throw, parent.querySelector('.uvc-fv-fvErrors')!, input, createTemplateMessage(rules[rule]!, input) || `Field ${input.getAttribute('name') || input.getAttribute('type')} is not match to regexp ${rules[rule]!.val}.`);
+            break;
+          case 'isEmail':
+            if (!input.value.match(/^[\w-\.]+@([\w-]+\.)+[\w-]{2,4}$/gi)) throwError(this.throw, parent.querySelector('.uvc-fv-fvErrors')!, input, createTemplateMessage(rules[rule]!, input) || `Field ${input.getAttribute('name') || input.getAttribute('type')} is not email.`);
+            break;
         }
       }
     })
@@ -97,12 +111,12 @@ export class FormValidator {
 }
 
 function throwError(throwMode: TThrow, container: HTMLDivElement, input: HTMLInputElement, msg: string) {
-  input.classList.add('uvc-fv-fvError-errorField')
+  input.classList.add('uvc-fv-fvError-field')
 
   if (throwMode === 'general') {
-    container.insertAdjacentHTML('beforeend', `<p class="uvc-fv-fvError-errorText" role="alert" tabindex="0">${msg}</p>`)
+    container.insertAdjacentHTML('beforeend', `<p class="uvc-fv-fvError-text" role="alert" tabindex="0">${msg}</p>`)
   } else {
-    input.insertAdjacentHTML('afterend', `<p class="uvc-fv-fvError-errorNode" role="alert" tabindex="0">${msg}</p>`)
+    input.insertAdjacentHTML('afterend', `<p class="uvc-fv-fvError-node" role="alert" tabindex="0">${msg}</p>`)
   }
 }
 

@@ -22,6 +22,15 @@ const ValidationForm: React.FC = (props) => {
       id: 'password-validate',
       notEmpty: { val: true },
       maxLength: { val: 12 },
+      match: {
+        val: /aaaa/,
+      }
+    },
+    {
+      id: 'email-validate',
+      isEmail: {
+        val: true
+      }
     }
   ]
 
@@ -31,6 +40,9 @@ const ValidationForm: React.FC = (props) => {
 
       <div>
         <input type="text" name="username" placeholder="username" id="username-validate" />
+      </div>
+      <div>
+        <input type="email" name="email" placeholder="email" id="email-validate" />
       </div>
       <div>
         <input type="password" name="password" placeholder="password" id="password-validate" />

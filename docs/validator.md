@@ -23,9 +23,8 @@ Create layout.
 ```tsx
 const rules: IFormInputRules[] = [
   {
-    id: 'input-id',
-    minLength: { val: 4, msg: 'Not default msg about minimal length. Required {{required}} chars. Now: {{current}}' },
-    maxLength: { val: 12 },
+    id: 'field-id',
+    // ...rules
   }
 ]
 
@@ -42,8 +41,18 @@ const rules: IFormInputRules[] = [
 </>
 ```
 
+On submit form calls prevent default. Use instead fetch request to send form data.
+
 ## Examples
 ```tsx
+const rules: IFormInputRules[] = [
+  {
+    id: 'username-validate',
+    minLength: { val: 4, msg: 'Not default msg about minimal length. Required {{required}} chars. Now: {{current}}' },
+    maxLength: { val: 12 },
+  }
+]
+
 <>
   <form action="/" id="form-id" onSubmit={e => instance.validate(e, rules)}>
     <div className="uvc-fv-fvErrors"></div>
@@ -63,9 +72,9 @@ const rules: IFormInputRules[] = [
 ## API
 ```scss
 .uvc-fv-fvErrors // Parent for errors while throw: general
-.uvc-fv-fvError-errorField // Input with error value.
-.uvc-fv-fvError-errorTest // Error message in parent div.
-.uvc-fv-fvError-errorNode // Error message after input.
+.uvc-fv-fvError-field // Input with error value.
+.uvc-fv-fvError-text // Error message in parent div.
+.uvc-fv-fvError-node // Error message after input.
 ```
 
 ```ts
@@ -75,7 +84,7 @@ const instance = new FormValidator({
 })
 
 instance.init() // Uses in useEffect(() => {}, []). Initialize component.
-instance.validate(e: FormEvent, inputRules: Array<IFormInputRules>) // onSubmit function
+instance.validate(e: FormEvent, inputRules: IFormInputRules[]) // onSubmit function
 
 interface IFormInputRules {
   id: string,
@@ -92,6 +101,11 @@ interface IFormInputRules {
     msg?: string
   }
 }
+
+// Template strings
+// You can enter dynamic data in error message.
+'{{required}}' // Return required characters for the field.
+'{{current}}' // Return current characters in the field.
 ```
 
 ## Get it now
