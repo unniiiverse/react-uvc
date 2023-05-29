@@ -25,15 +25,15 @@
 
   &-fv {
     &-fvError {
-      &-errorNode {
+      &-node {
         background-color: red;
       }
   
-      &-errorText {
+      &-text {
         color: red;
       }
 
-      &-errorField {
+      &-field {
         border: 1px solid red;
       }
     }

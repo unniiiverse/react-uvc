@@ -12,11 +12,37 @@ const ValidationForm: React.FC = (props) => {
     instance.init();
   }, [])
 
+  const checkUsernameAvailability = (input: HTMLInputElement) => {
+    console.log('rule')
+
+    class ValidationError extends Error {
+      constructor(msg: string) {
+        super(msg);
+        this.name = 'ValidationError'
+      }
+    }
+
+    if (!input.value.match(/123/g)) {
+      throw new ValidationError('input does not match 123')
+    }
+  }
+
+  const sendForm = (e: React.FormEvent) => {
+    const self = (e.target as HTMLFormElement);
+
+    if (self.querySelectorAll('.uvc-fv-fvError-text').length || self.querySelectorAll('.uvc-fv-fvError-node').length) {
+      return
+    }
+
+    console.log('send form')
+  }
+
   const rules: IFormInputRules[] = [
     {
       id: 'username-validate',
-      minLength: { val: 4, msg: 'Not default msg about minimal length. TODO: Required {{required}} chars. Now: {{current}}' },
-      maxLength: { val: 12 },
+      custom: {
+        val: checkUsernameAvailability
+      }
     },
     {
       id: 'password-validate',
@@ -35,7 +61,7 @@ const ValidationForm: React.FC = (props) => {
   ]
 
   return (
-    <form action="/" id="form-id" onSubmit={e => instance.validate(e, rules)}>
+    <form action="/" id="form-id" onSubmit={e => { instance.validate(e, rules); sendForm(e) }}>
       <div className="uvc-fv-fvErrors"></div>
 
       <div>
