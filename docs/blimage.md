@@ -8,7 +8,7 @@ import { BlImage } from 'react-uvc';
 
 const Component: React.FC = () => {
   return (
-    // Relative position is required.
+    // Relative position is important.
     <div className="relative">
       <BlImage src="PICTURE_URI" />
     </div>
@@ -17,6 +17,7 @@ const Component: React.FC = () => {
 ```
 
 ## Examples
+Default component implementation.
 ```tsx
 <div className="BlImage">
   <div className="relative w-[300px] h-[300px]">
@@ -29,6 +30,13 @@ const Component: React.FC = () => {
 ```scss
 .blurhash-image // Image tag.
 .blurhash-hash // Hash or smooth preview.
+```
+
+```tsx
+interface IBlImageProps {
+  src: string, // Image source.
+  initialHash?: string // Set initial image hash (preview).
+}
 ```
 
 ## Get it now

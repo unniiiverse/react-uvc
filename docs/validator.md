@@ -47,6 +47,9 @@ On submit form calls prevent default. Use instead fetch request to send form dat
 ## Examples
 Validate username and password. If username validate fails, throw custom message.
 ```tsx
+import React, { useEffect } from 'react';
+import { FormValidator, IFormInputRules } from 'react-uvc';
+
 const rules: IFormInputRules[] = [
   {
     id: 'username-validate',
@@ -60,47 +63,38 @@ const rules: IFormInputRules[] = [
   }
 ]
 
-<>
-  <form action="/" id="form-id" onSubmit={e => instance.validate(e, rules)}>
-    <div className="uvc-fv-fvErrors"></div>
+const Component: React.FC = () => {
+  const instance = new FormValidator({
+    throw: 'general' | 'afterEach',
+    formId: 'ID',
+  })
 
-    <div>
-      <input type="text" name="username" placeholder="username" id="username-validate" />
-    </div>
-    <div>
-      <input type="password" name="password" placeholder="password" id="password-validate" />
-    </div>
-    <button type="submit">Submit</button>
-  </form>
-</>
+  useEffect(() => {
+    instance.init();
+  }, [])
+
+  return (
+    <>
+      <form action="/" id="form-id" onSubmit={e => instance.validate(e, rules)}>
+        <div className="uvc-fv-fvErrors"></div>
+
+        <div>
+          <input type="text" name="username" placeholder="username" id="username-validate" />
+        </div>
+        <div>
+          <input type="password" name="password" placeholder="password" id="password-validate" />
+        </div>
+        <button type="submit">Submit</button>
+      </form>
+    </>
+  )
+}
 ```
 
 Validate username with custom function. In this example, if username does not match 123, validation will fail. Also if validation success, send form.
 ```tsx
-// IMPORTANT. Custom function always will accept as params it's input.
-const checkUsernameAvailability = (input: HTMLInputElement) => {
-  class ValidationError extends Error {
-    constructor(msg: string) {
-      super(msg);
-      this.name = 'ValidationError'
-    }
-  }
-
-  if (!input.value.match(/123/g)) {
-    throw new ValidationError('input does not match 123')
-  }
-}
-
-// Send form if parent won't include error text or node.
-const sendForm = (e: React.FormEvent) => {
-  const self = (e.target as HTMLFormElement);
-
-  if (self.querySelectorAll('.uvc-fv-fvError-text').length || self.querySelectorAll('.uvc-fv-fvError-node').length) {
-    return
-  }
-
-  console.log('send form')
-}
+import React, { useEffect } from 'react';
+import { FormValidator, IFormInputRules } from 'react-uvc';
 
 const rules: IFormInputRules[] = [
   {
@@ -111,16 +105,54 @@ const rules: IFormInputRules[] = [
   },
 ]
 
-<>
-  <form action="/" id="form-id" onSubmit={e => {instance.validate(e, rules); sendForm(e)}}>
-    <div className="uvc-fv-fvErrors"></div>
+const Component: React.FC = () => {
+  const instance = new FormValidator({
+    throw: 'general' | 'afterEach',
+    formId: 'ID',
+  })
 
-    <div>
-      <input type="text" name="username" placeholder="username" id="username-validate" />
-    </div>
-    <button type="submit">Submit</button>
-  </form>
-</>
+  useEffect(() => {
+    instance.init();
+  }, [])
+
+  // IMPORTANT. Custom function always will accept as params it's input.
+  const checkUsernameAvailability = (input: HTMLInputElement) => {
+    class ValidationError extends Error {
+      constructor(msg: string) {
+        super(msg);
+        this.name = 'ValidationError'
+      }
+    }
+
+    if (!input.value.match(/123/g)) {
+      throw new ValidationError('input does not match 123')
+    }
+  }
+
+  // Send form if parent won't include error text or node.
+  const sendForm = (e: React.FormEvent) => {
+    const self = (e.target as HTMLFormElement);
+
+    if (self.querySelectorAll('.uvc-fv-fvError-text').length || self.querySelectorAll('.uvc-fv-fvError-node').length) {
+      return
+    }
+
+    console.log('send form')
+  }
+
+  return (
+    <>
+      <form action="/" id="form-id" onSubmit={e => {instance.validate(e, rules); sendForm(e)}}>
+        <div className="uvc-fv-fvErrors"></div>
+    
+        <div>
+          <input type="text" name="username" placeholder="username" id="username-validate" />
+        </div>
+        <button type="submit">Submit</button>
+      </form>
+    </>
+  )
+}
 ```
 
 ## API
@@ -132,10 +164,12 @@ const rules: IFormInputRules[] = [
 ```
 
 ```ts
-const instance = new FormValidator({
+interface IFormValidatorProps {
   throw: 'general' | 'afterEach',
   formId: string
-})
+}
+
+const instance = new FormValidator({}: IFormValidatorProps)
 
 instance.init() // Uses in useEffect(() => {}, []). Initialize component.
 instance.validate(e: FormEvent, inputRules: IFormInputRules[]) // onSubmit function

@@ -3,20 +3,19 @@
 + [Show/Hide tab indexes](#tabindexes)
 
 ## Tabindexes
-In UVC uses to split layers (such as burger menu or popup layer) with other buttons that can triggered by tab. 
+In UVC use to split layers (such as burger menu or popup layer) with other elements with tabindex that can triggered by tab. 
 
 ### Usage
 ```ts
 hideTabIndexes(ignore: RegExp)
 /*
   Accepts regexp. Hides all tabindexes except regexp.
-  Hided tabindex will equal -1.
-  Previous value will added to data-tabindexPrev.
+  Previous value will add to data-tabindexPrev.
 */
 
 showTabIndexes()
 /*
-  Returns all tabindexes to previous value.
+  Returns all tabindexes to their previous value.
   Delete data-tabindexPrev attribute.
 */
 ```
