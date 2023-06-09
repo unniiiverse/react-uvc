@@ -1,4 +1,6 @@
-import { FormEvent } from "react";
+/* eslint-disable @typescript-eslint/no-non-null-assertion */
+
+import { FormEvent } from 'react';
 
 export type TThrow = 'general' | 'afterEach';
 export interface IFormValidatorParams {
@@ -29,7 +31,7 @@ export interface IFormInputRules {
     msg?: string
   },
   custom?: {
-    val: Function,
+    val: (input: HTMLInputElement) => void,
     msg?: string
   }
 }
@@ -42,22 +44,22 @@ export class FormValidator {
 
   constructor(params: IFormValidatorParams) {
     this.throw = params.throw;
-    this.formId = params.formId
+    this.formId = params.formId;
   }
 
   init() {
     const parent = document.querySelector(`#${this.formId}`);
 
     if (!parent) {
-      throw new Error('Parent is not found.')
+      throw new Error('Parent is not found.');
     }
 
     if (!parent.querySelector('.uvc-fv-fvErrors') && this.throw === 'general') {
-      throw new Error(`.uvc-fv-fvErrors in #${this.formId} is not found.`)
+      throw new Error(`.uvc-fv-fvErrors in #${this.formId} is not found.`);
     }
 
     if (!parent.querySelectorAll('input').length) {
-      throw new Error(`Any inputs in #${this.formId} are not found.`)
+      throw new Error(`Any inputs in #${this.formId} are not found.`);
     }
 
     this._ready = true;
@@ -65,7 +67,7 @@ export class FormValidator {
 
   validate(e: FormEvent, inputRules: Array<IFormInputRules>) {
     if (!this._ready) {
-      throw new Error('Uvc-FormValidator is not initialized.')
+      throw new Error('Uvc-FormValidator is not initialized.');
     }
 
     e.preventDefault();
@@ -75,10 +77,10 @@ export class FormValidator {
     const inputs = parent.querySelectorAll('input')!;
 
     throwField.innerHTML = '';
-    parent.querySelectorAll('.uvc-fv-fvError-node').forEach(el => el.remove())
+    parent.querySelectorAll('.uvc-fv-fvError-node').forEach(el => el.remove());
 
     inputs.forEach(input => {
-      input.classList.remove('uvc-fv-fvError-field')
+      input.classList.remove('uvc-fv-fvError-field');
       const rules = inputRules.find(el => el.id === input.getAttribute('id'));
 
       function createTemplateMessage(rule: { val: any, msg?: string }, input: HTMLInputElement) {
@@ -88,7 +90,7 @@ export class FormValidator {
 
         return rule.msg
           .replace(/{{required}}/gi, `${rule.val}`)
-          .replace(/{{current}}/gi, `${input.value.length}`)
+          .replace(/{{current}}/gi, `${input.value.length}`);
       }
 
       for (const rule in rules) {
@@ -103,7 +105,7 @@ export class FormValidator {
             if (input.value.length === 0) throwError(this.throw, parent.querySelector('.uvc-fv-fvErrors')!, input, createTemplateMessage(rules[rule]!, input) || `Field ${input.getAttribute('name') || input.getAttribute('type')} can not be empty.`);
             break;
           case 'isEmail':
-            if (!input.value.match(/^[\w-\.]+@([\w-]+\.)+[\w-]{2,4}$/gi)) throwError(this.throw, parent.querySelector('.uvc-fv-fvErrors')!, input, createTemplateMessage(rules[rule]!, input) || `Field ${input.getAttribute('name') || input.getAttribute('type')} is not email.`);
+            if (!input.value.match(/^[\w-.]+@([\w-]+\.)+[\w-]{2,4}$/gi)) throwError(this.throw, parent.querySelector('.uvc-fv-fvErrors')!, input, createTemplateMessage(rules[rule]!, input) || `Field ${input.getAttribute('name') || input.getAttribute('type')} is not email.`);
             break;
           case 'match':
             if (!input.value.match(rules[rule]!.val)) throwError(this.throw, parent.querySelector('.uvc-fv-fvErrors')!, input, createTemplateMessage(rules[rule]!, input) || `Field ${input.getAttribute('name') || input.getAttribute('type')} is not match to regexp ${rules[rule]!.val}.`);
@@ -112,24 +114,24 @@ export class FormValidator {
             try {
               rules[rule]!.val(input);
             } catch (e) {
-              throwError(this.throw, parent.querySelector('.uvc-fv-fvErrors')!, input, createTemplateMessage(rules[rule]!, input) || `${e}`)
-              console.error(e)
+              throwError(this.throw, parent.querySelector('.uvc-fv-fvErrors')!, input, createTemplateMessage(rules[rule]!, input) || `${e}`);
+              console.error(e);
             }
             break;
         }
       }
-    })
+    });
   }
 }
 
 function throwError(throwMode: TThrow, container: HTMLDivElement, input: HTMLInputElement, msg: string) {
-  input.classList.add('uvc-fv-fvError-field')
+  input.classList.add('uvc-fv-fvError-field');
 
   if (throwMode === 'general') {
-    container.insertAdjacentHTML('beforeend', `<p class="uvc-fv-fvError-text" role="alert" tabindex="0">${msg}</p>`)
+    container.insertAdjacentHTML('beforeend', `<p class="uvc-fv-fvError-text" role="alert" tabindex="0">${msg}</p>`);
   } else {
-    input.insertAdjacentHTML('afterend', `<p class="uvc-fv-fvError-node" role="alert" tabindex="0">${msg}</p>`)
+    input.insertAdjacentHTML('afterend', `<p class="uvc-fv-fvError-node" role="alert" tabindex="0">${msg}</p>`);
   }
 }
 
-export default FormValidator
+export default FormValidator;

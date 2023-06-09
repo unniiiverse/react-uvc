@@ -1,4 +1,6 @@
-import React, { FormEvent } from 'react';
+/* eslint-disable no-unused-vars */
+
+import React from 'react';
 import { IParams as IBurgerParams } from './burger.js';
 import { IParams as IPopupParams } from './popup.js';
 import { IParams as IAccordionParams } from './accordion.js';
@@ -20,7 +22,7 @@ export declare class Burger {
 export declare class Popup {
   private _ready: boolean;
   readonly instanceID: string;
-  readonly id: string
+  readonly id: string;
 
   constructor(params: IPopupParams)
 
@@ -53,7 +55,7 @@ export declare class FormValidator {
   constructor(params: IFormValidatorParams)
 
   init(): void;
-  validate(e: FormEvent, inputRules: IFormInputRules): void;
+  validate(e: React.FormEvent, inputRules: IFormInputRules): void;
 }
 
 export declare const BlImage: React.FC<IBlImageProps>;

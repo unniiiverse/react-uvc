@@ -25,12 +25,6 @@ const getImageData = (image: HTMLImageElement) => {
   throw Error('There is not canvas context');
 };
 
-const encodeImageToBlurhash = async (imageUrl: string) => {
-  const image = await loadImage(imageUrl);
-  const imageData = getImageData(image);
-  if (imageData) return encode(imageData.data, imageData.width, imageData.height, 4, 4);
-  throw Error('There is no image data');
-};
 
 
 

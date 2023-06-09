@@ -3,3 +3,4 @@ export { Burger } from './burger.js';
 export { Accordion } from './accordion.js';
 export { Popup } from './popup.js';
 export { BlImage } from './blimage.js';
+export { FormValidator, IFormInputRules } from './formValidator.js';

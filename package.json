@@ -1,6 +1,6 @@
 {
   "name": "react-uvc",
-  "version": "1.4.3",
+  "version": "1.4.4",
   "description": "Bundle of UVC react components.",
   "main": "dist/index.js",
   "types": "src/index.d.ts",
@@ -15,6 +15,7 @@
   ],
   "author": "unniiiverse<unniiiverse.github.io>",
   "devDependencies": {
+    "@types/react": "^18.2.9",
     "@typescript-eslint/eslint-plugin": "^5.54.1",
     "@typescript-eslint/parser": "^5.54.1",
     "eslint": "^8.36.0",
