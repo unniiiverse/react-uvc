@@ -157,6 +157,7 @@ const Component: React.FC = () => {
 
 ## API
 ```scss
+.uvc-fv-afterThis // If you want to return error after div which contains faied input.
 .uvc-fv-fvErrors // Parent for errors while throw: general
 .uvc-fv-fvError-field // Input with error value.
 .uvc-fv-fvError-text // Error message in parent div.
@@ -192,22 +193,28 @@ interface IFormInputRules {
     val: boolean,
     msg?: string
   },
-  macth?: {
+  isMobile?: {
+    val: boolean,
+    msg?: string
+  },
+  isChecked?: {
+    val: boolean,
+    msg?: string
+  },
+  match?: {
     val: RegExp,
     msg?: string
   },
   custom?: {
-    // Custom function always will accept as params it's input as HTMLInputElement.
-    val: Function,
-    // Ignore it. 
+    val: (input: HTMLInputElement) => void,
     msg?: string
   }
 }
 
 // Template strings
 // You can enter dynamic data in error message.
-'{{required}}' // Return required characters for the field.
-'{{current}}' // Return current characters in the field.
+'{{required}}' // Return required field.
+'{{current}}' // Return current field value.
 ```
 
 ## Get it now

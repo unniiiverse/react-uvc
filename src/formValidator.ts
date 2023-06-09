@@ -1,4 +1,4 @@
-/* eslint-disable @typescript-eslint/no-non-null-assertion */
+/* eslint-disable @typescript-eslint/no-non-null-assertion, no-unused-vars */
 
 import { FormEvent } from 'react';
 
@@ -23,6 +23,14 @@ export interface IFormInputRules {
     msg?: string
   },
   isEmail?: {
+    val: boolean,
+    msg?: string
+  },
+  isMobile?: {
+    val: boolean,
+    msg?: string
+  },
+  checked?: {
     val: boolean,
     msg?: string
   },
@@ -90,7 +98,7 @@ export class FormValidator {
 
         return rule.msg
           .replace(/{{required}}/gi, `${rule.val}`)
-          .replace(/{{current}}/gi, `${input.value.length}`);
+          .replace(/{{current}}/gi, `${input.value}`);
       }
 
       for (const rule in rules) {
@@ -106,6 +114,12 @@ export class FormValidator {
             break;
           case 'isEmail':
             if (!input.value.match(/^[\w-.]+@([\w-]+\.)+[\w-]{2,4}$/gi)) throwError(this.throw, parent.querySelector('.uvc-fv-fvErrors')!, input, createTemplateMessage(rules[rule]!, input) || `Field ${input.getAttribute('name') || input.getAttribute('type')} is not email.`);
+            break;
+          case 'isMobile':
+            if (!input.value.match(/\(?\+[0-9]{1,3}\)? ?-?[0-9]{1,3} ?-?[0-9]{3,5} ?-?[0-9]{4}( ?-?[0-9]{3})?/gi)) throwError(this.throw, parent.querySelector('.uvc-fv-fvErrors')!, input, createTemplateMessage(rules[rule]!, input) || `Field ${input.getAttribute('name') || input.getAttribute('type')} is not phone.`);
+            break;
+          case 'checked':
+            if (input.checked !== rules[rule]!.val) throwError(this.throw, parent.querySelector('.uvc-fv-fvErrors')!, input, createTemplateMessage(rules[rule]!, input) || `This field must be ${rules[rule]!.val}. Now ${input.checked}.`);
             break;
           case 'match':
             if (!input.value.match(rules[rule]!.val)) throwError(this.throw, parent.querySelector('.uvc-fv-fvErrors')!, input, createTemplateMessage(rules[rule]!, input) || `Field ${input.getAttribute('name') || input.getAttribute('type')} is not match to regexp ${rules[rule]!.val}.`);
@@ -130,7 +144,7 @@ function throwError(throwMode: TThrow, container: HTMLDivElement, input: HTMLInp
   if (throwMode === 'general') {
     container.insertAdjacentHTML('beforeend', `<p class="uvc-fv-fvError-text" role="alert" tabindex="0">${msg}</p>`);
   } else {
-    input.insertAdjacentHTML('afterend', `<p class="uvc-fv-fvError-node" role="alert" tabindex="0">${msg}</p>`);
+    (input.closest('.uvc-fv-afterThis') || input).insertAdjacentHTML('afterend', `<p class="uvc-fv-fvError-node" role="alert" tabindex="0">${msg}</p>`);
   }
 }
 

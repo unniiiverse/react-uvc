@@ -57,6 +57,12 @@ const ValidationForm: React.FC = (props) => {
       isEmail: {
         val: true
       }
+    },
+    {
+      id: 'checkbox-validate',
+      checked: {
+        val: true
+      }
     }
   ]
 
@@ -72,6 +78,12 @@ const ValidationForm: React.FC = (props) => {
       </div>
       <div>
         <input type="password" name="password" placeholder="password" id="password-validate" />
+      </div>
+      <div>
+        <div className="uvc-fv-afterThis">
+          <input type="checkbox" name="checkbox" placeholder="checkbox" id="checkbox-validate" />
+          <label htmlFor="checkbox-validate">Checkbox</label>
+        </div>
       </div>
       <button type="submit">Submit</button>
     </form>
