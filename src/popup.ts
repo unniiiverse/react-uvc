@@ -1,6 +1,5 @@
-/* eslint-disable @typescript-eslint/no-non-null-assertion */
+/* eslint-disable @typescript-eslint/no-non-null-assertion, no-unused-vars */
 
-import React from 'react';
 import { hideTabindexes, showTabindexes } from './functions.js';
 
 export interface IParams {
@@ -9,6 +8,7 @@ export interface IParams {
 
 export class Popup {
   private _ready = false;
+  public isOpen = false;
   readonly instanceID = (Math.random() * 100);
   readonly id: string;
 
@@ -22,7 +22,7 @@ export class Popup {
     const dialog = document.querySelector(`[data-uvc-popup-id="${this.id}"]`)!;
 
     document.querySelectorAll('.uvc-popup-close').forEach(el => {
-      el.setAttribute('tabindex', '0')
+      el.setAttribute('tabindex', '0');
       el.setAttribute('aria-label', 'Close the popup');
     });
 
@@ -50,6 +50,8 @@ export class Popup {
       throw new Error('UVC Popup is not initialized.');
     }
 
+    this.isOpen = true;
+
     const layer = document.querySelector('#uvc-popup-layer')!;
     const triggers = document.querySelectorAll(`[data-uvc-popup-openid="${this.id}"]`)!;
     const dialog = document.querySelector(`[data-uvc-popup-id="${this.id}"]`)!;
@@ -57,7 +59,7 @@ export class Popup {
     hideTabindexes(/uvc-popup-close/gi);
     triggers.forEach(el => {
       el.classList.add('uvc-popup-trigger--active');
-    })
+    });
 
     dialog.setAttribute('aria-hidden', 'false');
     dialog.classList.add('uvc-popup-dialog--active');
@@ -67,13 +69,10 @@ export class Popup {
     document.documentElement.setAttribute('style', 'overflow: hidden');
   }
 
-  close(e: React.MouseEvent<HTMLElement>) {
-    const self = (e.target as HTMLElement)!;
+  close() {
     const layer = document.querySelector('#uvc-popup-layer')!;
 
-    if (self.classList.contains('uvc-popup-dialog')) {
-      return;
-    }
+    this.isOpen = false;
 
     showTabindexes();
     document.querySelectorAll('.uvc-popup-dialog').forEach(el => {

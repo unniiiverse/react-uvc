@@ -10,7 +10,11 @@
 
 #uvc-popup-layer {
   z-index: 9999;
-  position: absolute;
+  visibility: hidden;
+  opacity: 0;
+  width: 100vw;
+  height: 100vh;
+  position: fixed;
   top: 0;
   left: 0;
   width: 100vw;
@@ -46,14 +50,7 @@
 // }
 
 // #uvc-popup-layer {
-//   opacity: 0;
-//   visibility: hidden;
 //   transition: .2s ease-in-out;
-//   position: fixed;
-//   top: 0;
-//   left: 0;
-//   width: 100vw;
-//   height: 100vh;
 //   display: flex;
 //   justify-content: center;
 //   align-items: center;

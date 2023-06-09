@@ -28,7 +28,7 @@ export declare class Popup {
 
   init(): void;
   open(): void;
-  close(e: React.MouseEvent<HTMLElement>): void;
+  close(): void;
 
 }
 

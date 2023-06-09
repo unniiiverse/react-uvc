@@ -24,11 +24,11 @@ const Popup: React.FC = (props) => {
         TRIGGER
       </button>
 
-      <div className="uvc-popup-close" id="uvc-popup-layer" onClick={e => instance.close(e)}>
+      <div className="uvc-popup-close" id="uvc-popup-layer" onClick={() => instance.close()}>
         <div className="uvc-popup-dialog" data-uvc-popup-id="uvc-popup-dialog-0">
           DIALOG #0
 
-          <button className="uvc-popup-trigger uvc-popup-close" data-uvc-popup-openid="uvc-popup-dialog-0" onClick={e => instance.close(e)}>
+          <button className="uvc-popup-trigger uvc-popup-close" data-uvc-popup-openid="uvc-popup-dialog-0" onClick={() => instance.close()}>
             TRIGGER
           </button>
         </div>
@@ -36,7 +36,7 @@ const Popup: React.FC = (props) => {
         <div className="uvc-popup-dialog" data-uvc-popup-id="uvc-popup-dialog-1">
           DIALOG #1
 
-          <button className="uvc-popup-trigger uvc-popup-close" data-uvc-popup-openid="uvc-popup-dialog-1" onClick={e => instance1.close(e)}>
+          <button className="uvc-popup-trigger uvc-popup-close" data-uvc-popup-openid="uvc-popup-dialog-1" onClick={() => instance1.close()}>
             TRIGGER
           </button>
         </div>
