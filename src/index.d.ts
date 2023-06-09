@@ -59,3 +59,5 @@ export declare class FormValidator {
 }
 
 export declare const BlImage: React.FC<IBlImageProps>;
+
+export { IBurgerParams, IPopupParams, IAccordionParams, IFormInputRules, IFormValidatorParams };

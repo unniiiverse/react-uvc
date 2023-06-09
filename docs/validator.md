@@ -158,6 +158,8 @@ const Component: React.FC = () => {
 ## API
 ```scss
 .uvc-fv-afterThis // If you want to return error after div which contains faied input.
+.uvc-fv-success // Succeed class for input.
+
 .uvc-fv-fvErrors // Parent for errors while throw: general
 .uvc-fv-fvError-field // Input with error value.
 .uvc-fv-fvError-text // Error message in parent div.
