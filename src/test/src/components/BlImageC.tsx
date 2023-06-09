@@ -40,16 +40,17 @@ export interface IProps {
 
 export const BlImage: React.FC<IProps> = (props: IProps) => {
   const { src, initialHash } = props;
-  const [hash, setHash] = useState(initialHash || 'LRQ0XHWB?b%M~qofIURjWBt7j[M{');
+  const [hash] = useState(initialHash || 'LRQ0XHWB?b%M~qofIURjWBt7j[M{');
   const [isPictureReady, setIsPictureReady] = useState(false);
 
   const onLoaded = () => {
     setIsPictureReady(true);
+    document.querySelectorAll('.blurhash-hash').forEach(el => el.setAttribute('style', 'opacity: 0; visibility: hidden'));
   };
 
   return (
     <>
-      <Blurhash hash={hash} className={'blurhash-hash absolute top-0 left-0 z-0 grayscale'} width={'100%'} height={'100%'} />
+      <Blurhash hash={hash} className={'blurhash-hash absolute top-0 left-0 z-0 grayscale duration-300'} width={'100%'} height={'100%'} />
       <motion.img
         className={'blurhash-image absolute top-0 left-0 z-[1] w-[100%] h-[100%]'}
         onLoad={onLoaded}

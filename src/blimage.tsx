@@ -25,6 +25,12 @@ const getImageData = (image: HTMLImageElement) => {
   throw Error('There is not canvas context');
 };
 
+const encodeImageToBlurhash = async (imageUrl: string) => {
+  const image = await loadImage(imageUrl);
+  const imageData = getImageData(image);
+  if (imageData) return encode(imageData.data, imageData.width, imageData.height, 4, 4);
+  throw Error('There is no image data');
+};
 
 
 
@@ -35,11 +41,12 @@ export interface IProps {
 
 export const BlImage: React.FC<IProps> = (props: IProps) => {
   const { src, initialHash } = props;
-  const [hash, setHash] = useState(initialHash || 'LRQ0XHWB?b%M~qofIURjWBt7j[M{');
+  const [hash] = useState(initialHash || 'LRQ0XHWB?b%M~qofIURjWBt7j[M{');
   const [isPictureReady, setIsPictureReady] = useState(false);
 
   const onLoaded = () => {
     setIsPictureReady(true);
+    document.querySelectorAll('.blurhash-hash').forEach(el => el.setAttribute('style', 'opacity: 0; visibility: hidden'));
   };
 
   return (
