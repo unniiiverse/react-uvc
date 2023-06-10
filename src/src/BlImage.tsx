@@ -1,5 +1,6 @@
 import React from "react";
-import BlImageC from './components/BlImageC'
+// import BlImageC from './components/BlImageC'
+import BlImageC from './API/blimage'
 
 const BlImage: React.FC = (props) => {
   return (

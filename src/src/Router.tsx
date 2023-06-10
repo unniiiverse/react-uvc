@@ -5,7 +5,6 @@ import BurgerC from "./Burger";
 import Home from "./Home";
 import PopupC from "./Popup";
 import TabsC from "./Tabs";
-import Page from "./Page";
 import BlImage from "./BlImage";
 import ValidationForm from "./ValidationForm";
 
@@ -16,7 +15,6 @@ export const paths = {
   accordionTest: '/accordionTest',
   tabs: '/tabs',
   popup: '/popup',
-  page: '/page',
   blimage: '/blimage',
   validator: '/validator'
 }
@@ -27,7 +25,6 @@ export const routes = [
   { path: paths.accordion, Component: Accordion },
   { path: paths.tabs, Component: TabsC },
   { path: paths.popup, Component: PopupC },
-  { path: paths.page, Component: Page },
   { path: paths.blimage, Component: BlImage },
   { path: paths.validator, Component: ValidationForm },
 ]

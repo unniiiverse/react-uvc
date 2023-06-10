@@ -30,8 +30,8 @@ const rules: IFormInputRules[] = [
 
 <>
   <form action="/" id="form-id" onSubmit={e => instance.validate(e, rules)}>
-    // Use uvc-fv-fvErrors if you want to show messages in a signle div.  
-    <div className="uvc-fv-fvErrors"></div>
+    // Use uvc-fv-error-container if you want to show messages in a signle div.  
+    <div className="uvc-fv-error-container"></div>
 
     // Use wrapper for input if you want to show message after input.
     <div>
@@ -65,7 +65,7 @@ const rules: IFormInputRules[] = [
 
 const Component: React.FC = () => {
   const instance = new FormValidator({
-    throw: 'general' | 'afterEach',
+    throw: 'general',
     formId: 'ID',
   })
 
@@ -76,14 +76,11 @@ const Component: React.FC = () => {
   return (
     <>
       <form action="/" id="form-id" onSubmit={e => instance.validate(e, rules)}>
-        <div className="uvc-fv-fvErrors"></div>
+        <div className="uvc-fv-error-container"></div>
 
-        <div>
-          <input type="text" name="username" placeholder="username" id="username-validate" />
-        </div>
-        <div>
-          <input type="password" name="password" placeholder="password" id="password-validate" />
-        </div>
+        <input type="text" name="username" placeholder="username" id="username-validate" />
+        <input type="password" name="password" placeholder="password" id="password-validate" />
+
         <button type="submit">Submit</button>
       </form>
     </>
@@ -107,7 +104,7 @@ const rules: IFormInputRules[] = [
 
 const Component: React.FC = () => {
   const instance = new FormValidator({
-    throw: 'general' | 'afterEach',
+    throw: 'afterEach',
     formId: 'ID',
   })
 
@@ -115,7 +112,6 @@ const Component: React.FC = () => {
     instance.init();
   }, [])
 
-  // IMPORTANT. Custom function always will accept as params it's input.
   const checkUsernameAvailability = (input: HTMLInputElement) => {
     class ValidationError extends Error {
       constructor(msg: string) {
@@ -133,7 +129,7 @@ const Component: React.FC = () => {
   const sendForm = (e: React.FormEvent) => {
     const self = (e.target as HTMLFormElement);
 
-    if (self.querySelectorAll('.uvc-fv-fvError-text').length || self.querySelectorAll('.uvc-fv-fvError-node').length) {
+    if (self.querySelectorAll('.uvc-fv-error-text').length || self.querySelectorAll('.uvc-fv-error-node').length) {
       return
     }
 
@@ -143,7 +139,7 @@ const Component: React.FC = () => {
   return (
     <>
       <form action="/" id="form-id" onSubmit={e => {instance.validate(e, rules); sendForm(e)}}>
-        <div className="uvc-fv-fvErrors"></div>
+        <div className="uvc-fv-error-container"></div>
     
         <div>
           <input type="text" name="username" placeholder="username" id="username-validate" />
@@ -157,13 +153,13 @@ const Component: React.FC = () => {
 
 ## API
 ```scss
-.uvc-fv-afterThis // If you want to return error after div which contains faied input.
-.uvc-fv-success // Succeed class for input.
+.uvc-fv-error-afterThis // Special class to throw error after this block. (By default error throw after input)
+.uvc-fv-field-success // Input with valid value.
+.uvc-fv-field-error // Input with invalid value.
 
-.uvc-fv-fvErrors // Parent for errors while throw: general
-.uvc-fv-fvError-field // Input with error value.
-.uvc-fv-fvError-text // Error message in parent div.
-.uvc-fv-fvError-node // Error message after input.
+.uvc-fv-error-container // Container for errors while throw: general
+.uvc-fv-error-text // Error message in parent div.
+.uvc-fv-error-node // Error message after input.
 ```
 
 ```ts

@@ -53,9 +53,17 @@ export interface IFormInputRules {
   // }
 }
 
+const EC = {
+  afterThis: 'uvc-fv-error-afterThis',
+  successField: 'uvc-fv-field-success',
+  errorField: 'uvc-fv-field-error',
+  errors: 'uvc-fv-error-container',
+  errorNode: 'uvc-fv-error-node',
+  errorText: 'uvc-fv-error-text',
+};
+
 export class FormValidator {
   private _ready = false;
-  readonly instanceID = (Math.random() * 100);
   readonly throw: TThrow;
   readonly formId: string;
 
@@ -71,8 +79,8 @@ export class FormValidator {
       throw new Error('Parent is not found.');
     }
 
-    if (!parent.querySelector('.uvc-fv-fvErrors') && this.throw === 'general') {
-      throw new Error(`.uvc-fv-fvErrors in #${this.formId} is not found.`);
+    if (!parent.querySelector(`.${EC.errors}`) && this.throw === 'general') {
+      throw new Error(`.${EC.errors} in #${this.formId} is not found.`);
     }
 
     if (!parent.querySelectorAll('input').length) {
@@ -90,15 +98,14 @@ export class FormValidator {
     e.preventDefault();
 
     const parent = document.querySelector(`#${this.formId}`)!;
-    const throwField = parent.querySelector('.uvc-fv-fvErrors')!;
     const inputs = parent.querySelectorAll('input')!;
 
-    throwField.innerHTML = '';
-    parent.querySelectorAll('.uvc-fv-fvError-node').forEach(el => el.remove());
+    parent.querySelectorAll(`.${EC.errorText}`).forEach(el => el.remove());
+    parent.querySelectorAll(`.${EC.errorText}`).forEach(el => el.remove());
 
     inputs.forEach(input => {
-      input.classList.remove('uvc-fv-fvError-field');
-      input.classList.remove('uvc-fv-success');
+      input.classList.remove(EC.errorField);
+      input.classList.remove(EC.successField);
       const rules = inputRules.find(el => el.id === input.getAttribute('id'));
 
       function createTemplateMessage(rule: {
@@ -118,45 +125,45 @@ export class FormValidator {
         switch (rule) {
           case 'minLength':
             if (input.value.length < rules[rule]!.val) {
-              throwError(this.throw, parent.querySelector('.uvc-fv-fvErrors')!, input, createTemplateMessage(rules[rule]!, input) || `Minimum length for ${input.getAttribute('name') || input.getAttribute('type')} is ${rules[rule]!.val}. Now ${input.value.length}`)
-            } else input.classList.add('uvc-fv-success');
+              throwError(this.throw, parent.querySelector(`.${EC.errors}`)!, input, createTemplateMessage(rules[rule]!, input) || `Minimum length for ${input.getAttribute('name') || input.getAttribute('type')} is ${rules[rule]!.val}. Now ${input.value.length}`);
+            } else input.classList.add(EC.successField);
             break;
           case 'maxLength':
             if (input.value.length > rules[rule]!.val) {
-              throwError(this.throw, parent.querySelector('.uvc-fv-fvErrors')!, input, createTemplateMessage(rules[rule]!, input) || `Maximum length for ${input.getAttribute('name') || input.getAttribute('type')} is ${rules[rule]!.val}. Now ${input.value.length}`)
-            } else input.classList.add('uvc-fv-success');
+              throwError(this.throw, parent.querySelector(`.${EC.errors}`)!, input, createTemplateMessage(rules[rule]!, input) || `Maximum length for ${input.getAttribute('name') || input.getAttribute('type')} is ${rules[rule]!.val}. Now ${input.value.length}`);
+            } else input.classList.add(EC.successField);
             break;
           case 'notEmpty':
             if (input.value.length === 0) {
-              throwError(this.throw, parent.querySelector('.uvc-fv-fvErrors')!, input, createTemplateMessage(rules[rule]!, input) || `Field ${input.getAttribute('name') || input.getAttribute('type')} can not be empty.`)
-            } else input.classList.add('uvc-fv-success');
+              throwError(this.throw, parent.querySelector(`.${EC.errors}`)!, input, createTemplateMessage(rules[rule]!, input) || `Field ${input.getAttribute('name') || input.getAttribute('type')} can not be empty.`);
+            } else input.classList.add(EC.successField);
             break;
           case 'isEmail':
             if (!input.value.match(/^[\w-.]+@([\w-]+\.)+[\w-]{2,4}$/gi)) {
-              throwError(this.throw, parent.querySelector('.uvc-fv-fvErrors')!, input, createTemplateMessage(rules[rule]!, input) || `Field ${input.getAttribute('name') || input.getAttribute('type')} is not email.`)
-            } else input.classList.add('uvc-fv-success');
+              throwError(this.throw, parent.querySelector(`.${EC.errors}`)!, input, createTemplateMessage(rules[rule]!, input) || `Field ${input.getAttribute('name') || input.getAttribute('type')} is not email.`);
+            } else input.classList.add(EC.successField);
             break;
           case 'isMobile':
             if (!input.value.match(/\(?\+[0-9]{1,3}\)? ?-?[0-9]{1,3} ?-?[0-9]{3,5} ?-?[0-9]{4}( ?-?[0-9]{3})?/gi)) {
-              throwError(this.throw, parent.querySelector('.uvc-fv-fvErrors')!, input, createTemplateMessage(rules[rule]!, input) || `Field ${input.getAttribute('name') || input.getAttribute('type')} is not phone.`)
-            } else input.classList.add('uvc-fv-success');
+              throwError(this.throw, parent.querySelector(`.${EC.errors}`)!, input, createTemplateMessage(rules[rule]!, input) || `Field ${input.getAttribute('name') || input.getAttribute('type')} is not phone.`);
+            } else input.classList.add(EC.successField);
             break;
           case 'checked':
             if (input.checked !== rules[rule]!.val) {
-              throwError(this.throw, parent.querySelector('.uvc-fv-fvErrors')!, input, createTemplateMessage(rules[rule]!, input) || `This field must be ${rules[rule]!.val}. Now ${input.checked}.`)
-            } else input.classList.add('uvc-fv-success');
+              throwError(this.throw, parent.querySelector(`.${EC.errors}`)!, input, createTemplateMessage(rules[rule]!, input) || `This field must be ${rules[rule]!.val}. Now ${input.checked}.`);
+            } else input.classList.add(EC.successField);
             break;
           case 'match':
             if (!input.value.match(rules[rule]!.val)) {
-              throwError(this.throw, parent.querySelector('.uvc-fv-fvErrors')!, input, createTemplateMessage(rules[rule]!, input) || `Field ${input.getAttribute('name') || input.getAttribute('type')} is not match to regexp ${rules[rule]!.val}.`)
-            } else input.classList.add('uvc-fv-success');
+              throwError(this.throw, parent.querySelector(`.${EC.errors}`)!, input, createTemplateMessage(rules[rule]!, input) || `Field ${input.getAttribute('name') || input.getAttribute('type')} is not match to regexp ${rules[rule]!.val}.`);
+            } else input.classList.add(EC.successField);
             break;
           case 'custom':
             try {
               rules[rule]!.val(input);
-              input.classList.add('uvc-fv-success');
+              input.classList.add(EC.successField);
             } catch (e) {
-              throwError(this.throw, parent.querySelector('.uvc-fv-fvErrors')!, input, createTemplateMessage(rules[rule]!, input) || `${e}`);
+              throwError(this.throw, parent.querySelector(`.${EC.errors}`)!, input, createTemplateMessage(rules[rule]!, input) || `${e}`);
               console.error(e);
             }
             break;
@@ -170,9 +177,9 @@ function throwError(throwMode: TThrow, container: HTMLDivElement, input: HTMLInp
   input.classList.add('uvc-fv-fvError-field');
 
   if (throwMode === 'general') {
-    container.insertAdjacentHTML('beforeend', `<p class="uvc-fv-fvError-text" role="alert" tabindex="0">${msg}</p>`);
+    container.insertAdjacentHTML('beforeend', `<p class="${EC.errorText}" role="alert" tabindex="0">${msg}</p>`);
   } else {
-    (input.closest('.uvc-fv-afterThis') || input).insertAdjacentHTML('afterend', `<p class="uvc-fv-fvError-node" role="alert" tabindex="0">${msg}</p>`);
+    (input.closest('.uvc-fv-afterThis') || input).insertAdjacentHTML('afterend', `<p class="${EC.errorText}" role="alert" tabindex="0">${msg}</p>`);
   }
 }
 
