@@ -98,7 +98,7 @@
   "include": [
     "src/src/API/**/*.*",
     "src/index.d.ts",
-    "src/index.ts",
+    "src/src/API/index.ts",
   ],
   "exclude": [
     "node_modules",

@@ -23,5 +23,5 @@
   },
   "include": [
     "src"
-, "src/.OLD/test", "src/.OLD/AccordionC.tsx", "src/.OLD/Burger.tsx", "src/.OLD/Popup.tsx", "src/.OLD/Tabs.tsx", "src/.OLD/Core.ts", "../index.ts", "index.ts", "index.d.ts"  ]
+, "src/.OLD/test", "src/.OLD/AccordionC.tsx", "src/.OLD/Burger.tsx", "src/.OLD/Popup.tsx", "src/.OLD/Tabs.tsx", "src/.OLD/Core.ts", "../index.ts", "src/API/index.ts", "index.d.ts"  ]
 }
