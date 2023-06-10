@@ -1,7 +1,22 @@
-export * from '../dist/functions.js';
-export { Burger } from '../dist/burger.js';
-export { Accordion } from '../dist/accordion.js';
-export { Popup } from '../dist/popup.js';
-export { BlImage } from '../dist/blimage.js';
-export { FormValidator } from '../dist/formValidator.js';
-export type { IFormInputRules } from '../dist/formValidator.js';
+import React from 'react';
+
+export declare class Accordion {
+  private parent;
+  private initialOpen?;
+  private singleOpen?;
+  private ready;
+  private instanceID;
+  constructor(props: {
+    parent: string;
+    initialOpen?: string | null;
+    singleOpen?: boolean;
+  });
+  init(): void;
+  toggle(e: React.MouseEvent<HTMLButtonElement>): void;
+}
+
+export declare const BlImage: React.FC<{
+  src: string;
+  initialHash?: string;
+}>;
+export default BlImage;
