@@ -93,15 +93,6 @@ Validate username with custom function. In this example, if username does not ma
 import React, { useEffect } from 'react';
 import { FormValidator, IFormInputRules } from 'react-uvc';
 
-const rules: IFormInputRules[] = [
-  {
-    id: 'username-validate',
-    custom: {
-      val: checkUsernameAvailability
-    }
-  },
-]
-
 const Component: React.FC = () => {
   const instance = new FormValidator({
     throw: 'afterEach',
@@ -125,20 +116,23 @@ const Component: React.FC = () => {
     }
   }
 
-  // Send form if parent won't include error text or node.
-  const sendForm = (e: React.FormEvent) => {
-    const self = (e.target as HTMLFormElement);
-
-    if (self.querySelectorAll('.uvc-fv-error-text').length || self.querySelectorAll('.uvc-fv-error-node').length) {
-      return
+  const rules: IFormInputRules[] = [
+  {
+    id: 'username-validate',
+    custom: {
+      val: checkUsernameAvailability
     }
+  },
+]
 
+  // Send form if form validated successfully
+  const sendForm = () => {
     console.log('send form')
   }
 
   return (
     <>
-      <form action="/" id="form-id" onSubmit={e => {instance.validate(e, rules); sendForm(e)}}>
+      <form action="/" id="form-id" onSubmit={e => instance.validate(e, rules, sendForm)}>
         <div className="uvc-fv-error-container"></div>
     
         <div>
@@ -171,7 +165,7 @@ interface IFormValidatorProps {
 const instance = new FormValidator({}: IFormValidatorProps)
 
 instance.init() // Uses in useEffect(() => {}, []). Initialize component.
-instance.validate(e: FormEvent, inputRules: IFormInputRules[]) // onSubmit function
+instance.validate(e: FormEvent, inputRules: IFormInputRules[], successCb: () => void) // onSubmit function
 
 interface IFormInputRules {
   id: string,
@@ -211,7 +205,7 @@ interface IFormInputRules {
 
 // Template strings
 // You can enter dynamic data in error message.
-'{{required}}' // Return required field.
+'{{required}}' // Return required field value.
 '{{current}}' // Return current field value.
 ```
 

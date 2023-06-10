@@ -1,6 +1,6 @@
 /* eslint-disable @typescript-eslint/no-non-null-assertion */
 
-import { hideTabindexes, showTabindexes } from './functions.js';
+import { hideTabindexes, showTabindexes } from './functions';
 
 export interface IParams {
   triggerQuery: string,

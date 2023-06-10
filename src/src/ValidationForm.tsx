@@ -13,8 +13,6 @@ const ValidationForm: React.FC = (props) => {
   }, [])
 
   const checkUsernameAvailability = (input: HTMLInputElement) => {
-    console.log('rule')
-
     class ValidationError extends Error {
       constructor(msg: string) {
         super(msg);
@@ -27,13 +25,7 @@ const ValidationForm: React.FC = (props) => {
     }
   }
 
-  const sendForm = (e: React.FormEvent) => {
-    const self = (e.target as HTMLFormElement);
-
-    if (self.querySelectorAll('.uvc-fv-fvError-text').length || self.querySelectorAll('.uvc-fv-fvError-node').length) {
-      return
-    }
-
+  const sendForm = () => {
     console.log('send form')
   }
 
@@ -67,7 +59,7 @@ const ValidationForm: React.FC = (props) => {
   ]
 
   return (
-    <form action="/" id="form-id" onSubmit={e => { instance.validate(e, rules); sendForm(e) }}>
+    <form action="/" id="form-id" onSubmit={e => { instance.validate(e, rules, sendForm); }}>
       <div className="uvc-fv-fvErrors"></div>
 
       <div>

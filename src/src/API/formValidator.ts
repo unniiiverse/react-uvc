@@ -88,7 +88,7 @@ export class FormValidator {
     this._ready = true;
   }
 
-  validate(e: FormEvent, inputRules: Array<IFormInputRules>) {
+  validate(e: FormEvent, inputRules: Array<IFormInputRules>, successCb?: () => void) {
     if (!this._ready) {
       throw new Error('Uvc-FormValidator is not initialized.');
     }
@@ -98,7 +98,7 @@ export class FormValidator {
     const parent = document.querySelector(`#${this.formId}`)!;
     const inputs = parent.querySelectorAll('input')!;
 
-    parent.querySelectorAll(`.${EC.errorText}`).forEach(el => el.remove());
+    parent.querySelectorAll(`.${EC.errorNode}`).forEach(el => el.remove());
     parent.querySelectorAll(`.${EC.errorText}`).forEach(el => el.remove());
 
     inputs.forEach(input => {
@@ -168,11 +168,15 @@ export class FormValidator {
         }
       }
     });
+
+    if (!parent.querySelectorAll(`.${EC.errorField}`).length && successCb) {
+      successCb();
+    }
   }
 }
 
 function throwError(throwMode: TThrow, container: HTMLDivElement, input: HTMLInputElement, msg: string) {
-  input.classList.add('uvc-fv-fvError-field');
+  input.classList.add(EC.errorField);
 
   if (throwMode === 'general') {
     container.insertAdjacentHTML('beforeend', `<p class="${EC.errorText}" role="alert" tabindex="0">${msg}</p>`);
