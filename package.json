@@ -1,12 +1,12 @@
 {
   "name": "react-uvc",
-  "version": "1.4.11",
+  "version": "1.4.12",
   "description": "Bundle of UVC react components.",
   "main": "dist/index.js",
   "types": "dist/index.d.ts",
   "type": "module",
   "scripts": {
-    "compile": "tsc --rootDir src/src/API --outDir dist/ --target es6 --module es6"
+    "build": "tsc --rootDir src/src/API --outDir dist/ --project ./tsconfig.json"
   },
   "keywords": [
     "uvc",

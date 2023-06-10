@@ -1,8 +1,6 @@
 /* eslint-disable @typescript-eslint/no-non-null-assertion, no-unused-vars */
 
-import {
-  FormEvent
-} from 'react';
+import { FormEvent } from 'react';
 
 export type TThrow = 'general' | 'afterEach';
 export interface IFormValidatorParams {

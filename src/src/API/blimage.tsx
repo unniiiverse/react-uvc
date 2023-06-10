@@ -2,7 +2,7 @@ import React, { useState } from 'react';
 import { motion } from 'framer-motion';
 import { Blurhash } from 'react-blurhash';
 import { encode } from 'blurhash';
-import './styles/blimage.scss';
+import './css/blimage.css';
 
 const loadImage = async (src: string): Promise<HTMLImageElement> =>
   new Promise((resolve, reject) => {
