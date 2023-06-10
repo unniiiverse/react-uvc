@@ -1,9 +1,9 @@
 {
   "name": "react-uvc",
-  "version": "1.4.9",
+  "version": "1.4.10",
   "description": "Bundle of UVC react components.",
-  "main": "dist/index.js",
-  "types": "dist/index.d.ts",
+  "main": "src/index.js",
+  "types": "src/index.d.ts",
   "type": "module",
   "scripts": {
     "compile": "tsc --rootDir src/src/API --outDir dist/"
