@@ -164,7 +164,7 @@ interface IFormValidatorProps {
 
 const instance = new FormValidator({}: IFormValidatorProps)
 
-instance.init() // Uses in useEffect(() => {}, []). Initialize component.
+instance.init(inputRules?: IFormInputRules[]) // Uses in useEffect(() => {}, []). Initialize component. Accept validation rules, set attributes (such as minLength or required) to inputs.
 instance.validate(e: FormEvent, inputRules: IFormInputRules[], successCb: () => void) // onSubmit function
 
 interface IFormInputRules {
@@ -199,6 +199,10 @@ interface IFormInputRules {
   },
   custom?: {
     val: (input: HTMLInputElement) => void,
+    msg?: string
+  },
+  required?: {
+    val: boolean,
     msg?: string
   }
 }

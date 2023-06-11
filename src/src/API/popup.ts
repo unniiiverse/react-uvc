@@ -1,6 +1,6 @@
 /* eslint-disable @typescript-eslint/no-non-null-assertion, no-unused-vars */
 
-import { hideTabindexes, showTabindexes } from './functions';
+import { hideTabindexes, showTabindexes } from './functions.js';
 
 export interface IParams {
   id: string,

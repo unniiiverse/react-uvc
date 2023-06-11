@@ -3,14 +3,15 @@ import { FormValidator, IFormInputRules } from './API/formValidator'
 import './styles/index.scss'
 
 const ValidationForm: React.FC = (props) => {
-  const instance = new FormValidator({
+  const instance1 = new FormValidator({
     throw: 'afterEach',
-    formId: 'form-id',
+    formId: 'form-1',
   })
 
-  useEffect(() => {
-    instance.init();
-  }, [])
+  const instance2 = new FormValidator({
+    throw: 'afterEach',
+    formId: 'form-2',
+  })
 
   const checkUsernameAvailability = (input: HTMLInputElement) => {
     class ValidationError extends Error {
@@ -29,7 +30,7 @@ const ValidationForm: React.FC = (props) => {
     console.log('send form')
   }
 
-  const rules: IFormInputRules[] = [
+  const rules1: IFormInputRules[] = [
     {
       id: 'username-validate',
       custom: {
@@ -58,27 +59,95 @@ const ValidationForm: React.FC = (props) => {
     }
   ]
 
-  return (
-    <form action="/" id="form-id" onSubmit={e => { instance.validate(e, rules, sendForm); }}>
-      <div className="uvc-fv-fvErrors"></div>
+  useEffect(() => {
+    // instance1.init();
+    instance2.init(rules2);
+  }, [])
 
-      <div>
-        <input type="text" name="username" placeholder="username" id="username-validate" />
-      </div>
-      <div>
-        <input type="email" name="email" placeholder="email" id="email-validate" />
-      </div>
-      <div>
-        <input type="password" name="password" placeholder="password" id="password-validate" />
-      </div>
-      <div>
-        <div className="uvc-fv-afterThis">
-          <input type="checkbox" name="checkbox" placeholder="checkbox" id="checkbox-validate" />
-          <label htmlFor="checkbox-validate">Checkbox</label>
+  const rules2: IFormInputRules[] = [
+    {
+      id: 'inp-req',
+      minLength: {
+        val: 6
+      }
+    },
+    {
+      id: 'inp-notReq',
+      required: {
+        val: false
+      },
+      minLength: {
+        val: 6
+      }
+    },
+    {
+      id: 'inp-ariaMin',
+      minLength: {
+        val: 6
+      }
+    },
+    {
+      id: 'inp-ariaMax',
+      maxLength: {
+        val: 12
+      }
+    },
+    {
+      id: 'inp-ariaMinMax',
+      minLength: {
+        val: 6
+      },
+      maxLength: {
+        val: 12
+      }
+    },
+  ]
+
+  return (
+    <>
+      {/* <form action="/" id="form-1" onSubmit={e => { instance1.validate(e, rules1, sendForm); }}>
+        <div className="uvc-fv-error-container"></div>
+
+        <div>
+          <input type="text" name="username" placeholder="username" id="username-validate" />
         </div>
-      </div>
-      <button type="submit">Submit</button>
-    </form>
+        <div>
+          <input type="email" name="email" placeholder="email" id="email-validate" />
+        </div>
+        <div>
+          <input type="password" name="password" placeholder="password" id="password-validate" />
+        </div>
+        <div>
+          <div className="uvc-fv-afterThis">
+            <input type="checkbox" name="checkbox" placeholder="checkbox" id="checkbox-validate" />
+            <label htmlFor="checkbox-validate">Checkbox</label>
+          </div>
+        </div>
+        <button type="submit">Submit</button>
+      </form> */}
+
+      <form action="/" id="form-2" onSubmit={e => { instance2.validate(e, rules2, () => console.log('submit')); }}>
+        <div className="uvc-fv-error-container"></div>
+
+        <div>
+          <input type="text" id="inp-req" placeholder="required" />
+        </div>
+        <div>
+          <input type="text" id="inp-notReq" placeholder="not required" />
+        </div>
+        <div>
+          <input type="text" id="inp-ariaMin" placeholder="aria min" />
+        </div>
+        <div>
+          <input type="text" id="inp-ariaMax" placeholder="aria max" />
+        </div>
+        <div>
+          <input type="text" id="inp-ariaMinMax" placeholder="aria min max" />
+        </div>
+
+        <button type="submit">Submit</button>
+      </form>
+    </>
   );
 }
 

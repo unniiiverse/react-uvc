@@ -42,6 +42,10 @@ export interface IFormInputRules {
     val: (input: HTMLInputElement) => void,
     msg?: string
   },
+  required?: {
+    val: boolean,
+    msg?: string
+  },
   // TODO
   // msgClasses?: {
   //   field?: string,
@@ -70,19 +74,29 @@ export class FormValidator {
     this.formId = params.formId;
   }
 
-  init() {
+  init(inputRules?: Array<IFormInputRules>) {
     const parent = document.querySelector(`#${this.formId}`);
 
     if (!parent) {
-      throw new Error('Parent is not found.');
+      throw new Error(`Form (${this.formId}) is not found.`);
     }
 
     if (!parent.querySelector(`.${EC.errors}`) && this.throw === 'general') {
       throw new Error(`.${EC.errors} in #${this.formId} is not found.`);
     }
 
-    if (!parent.querySelectorAll('input').length) {
-      throw new Error(`Any inputs in #${this.formId} are not found.`);
+    if (inputRules) {
+      inputRules.forEach(rule => {
+        const input = document.querySelector(`#${rule.id}`)!;
+
+        if (rule.required?.val || rule.required?.val === undefined) {
+          input.setAttribute('aria-required', 'true')
+        } if (rule.minLength) {
+          input.setAttribute('minLength', `${rule.minLength!.val}`)
+        } if (rule.maxLength) {
+          input.setAttribute('maxLength', `${rule.maxLength!.val}`)
+        }
+      })
     }
 
     this._ready = true;
@@ -104,7 +118,7 @@ export class FormValidator {
     inputs.forEach(input => {
       input.classList.remove(EC.errorField);
       input.classList.remove(EC.successField);
-      const rules = inputRules.find(el => el.id === input.getAttribute('id'));
+      const rules = inputRules.find(el => el.id === input.getAttribute('id'))!;
 
       function createTemplateMessage(rule: {
         val: any,
@@ -117,6 +131,10 @@ export class FormValidator {
         return rule.msg
           .replace(/{{required}}/gi, `${rule.val}`)
           .replace(/{{current}}/gi, `${input.value}`);
+      }
+
+      if (rules.required?.val === false) {
+        return;
       }
 
       for (const rule in rules) {
