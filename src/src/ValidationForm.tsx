@@ -126,7 +126,7 @@ const ValidationForm: React.FC = (props) => {
         <button type="submit">Submit</button>
       </form> */}
 
-      <form action="/" id="form-2" onSubmit={e => { instance2.validate(e, rules2, () => console.log('submit')); }}>
+      <form action="/" id="form-2" onSubmit={e => { instance2.validate(e, rules2, sendForm); }}>
         <div className="uvc-fv-error-container"></div>
 
         <div>

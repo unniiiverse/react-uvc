@@ -35,7 +35,9 @@ Default component implementation.
 ```tsx
 interface IBlImageProps {
   src: string, // Image source.
-  initialHash?: string // Set initial image hash (preview).
+  initialHash?: string, // Set initial image hash (preview).
+  alt?: string // Alt for image
+  className?: string // Class for image
 }
 ```
 

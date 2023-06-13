@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import { motion } from 'framer-motion';
 import { Blurhash } from 'react-blurhash';
 import { encode } from 'blurhash';
@@ -36,38 +36,42 @@ const encodeImageToBlurhash = async (imageUrl: string) => {
 
 export interface IProps {
   src: string,
-  initialHash?: string
+  initialHash?: string,
+  alt?: string,
+  className?: string
 }
 
 export const BlImage: React.FC<IProps> = (props: IProps) => {
-  const { src, initialHash } = props;
-  const [hash] = useState(initialHash || 'LRQ0XHWB?b%M~qofIURjWBt7j[M{');
+  const { src, initialHash, alt, className } = props;
+  const defaultHash = 'LRQ0XHWB?b%M~qofIURjWBt7j[M{'
+  const [hash] = useState(initialHash || defaultHash);
   const [isPictureReady, setIsPictureReady] = useState(false);
+
+  console.log(className)
 
   const onLoaded = () => {
     setIsPictureReady(true);
-    document.querySelectorAll('.blurhash-hash').forEach(el => el.setAttribute('style', 'opacity: 0; visibility: hidden'));
+    document.querySelectorAll('.blurhash-hash').forEach(el => el.setAttribute('style', 'opacity: 0; visibilty: hidden;'));
   };
 
   return (
     <>
-      <Blurhash hash={hash} className={'blurhash-hash'} width={'100%'} height={'100%'} />
+      <Blurhash hash={hash} className={`blurhash-hash`} width={'100%'} height={'100%'} />
       <motion.img
-        className={'blurhash-image'}
+        className={`blurhash-image ${className}`}
         onLoad={onLoaded}
         src={src}
         loading="lazy"
         initial={{ opacity: 0, filter: 'blur(8px)' }}
         animate={{ opacity: isPictureReady ? 1 : 0, filter: 'blur(0)' }}
         transition={{
-          opacity: { delay: 0.5, duration: 0.4 },
-          filter: { delay: 0.5, duration: 0.4 }
+          opacity: { delay: 0.1, duration: 0.4 },
+          filter: { delay: 0.1, duration: 0.4 }
         }}
-        width={'100%'}
-        height={'100%'}
+        alt={alt}
       />
     </>
-  );
+  )
 };
 
 export default BlImage;

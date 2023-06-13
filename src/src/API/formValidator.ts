@@ -91,7 +91,11 @@ export class FormValidator {
 
         if (rule.required?.val || rule.required?.val === undefined) {
           input.setAttribute('aria-required', 'true')
-        } if (rule.minLength) {
+        } else {
+          return;
+        }
+
+        if (rule.minLength) {
           input.setAttribute('minLength', `${rule.minLength!.val}`)
         } if (rule.maxLength) {
           input.setAttribute('maxLength', `${rule.maxLength!.val}`)
@@ -118,6 +122,7 @@ export class FormValidator {
     inputs.forEach(input => {
       input.classList.remove(EC.errorField);
       input.classList.remove(EC.successField);
+
       const rules = inputRules.find(el => el.id === input.getAttribute('id'))!;
 
       function createTemplateMessage(rule: {
@@ -199,7 +204,7 @@ function throwError(throwMode: TThrow, container: HTMLDivElement, input: HTMLInp
   if (throwMode === 'general') {
     container.insertAdjacentHTML('beforeend', `<p class="${EC.errorText}" role="alert" tabindex="0">${msg}</p>`);
   } else {
-    (input.closest('.uvc-fv-afterThis') || input).insertAdjacentHTML('afterend', `<p class="${EC.errorText}" role="alert" tabindex="0">${msg}</p>`);
+    (input.closest('.uvc-fv-afterThis') || input).insertAdjacentHTML('afterend', `<p class="${EC.errorNode}" role="alert" tabindex="0">${msg}</p>`);
   }
 }
 
