@@ -147,9 +147,9 @@ const Component: React.FC = () => {
 
 ## API
 ```scss
+.uvc-fv-success-field // Input with valid value.
 .uvc-fv-error-afterThis // Special class to throw error after this block. (By default error throw after input)
-.uvc-fv-field-success // Input with valid value.
-.uvc-fv-field-error // Input with invalid value.
+.uvc-fv-error-field // Input with invalid value.
 
 .uvc-fv-error-container // Container for errors while throw: general
 .uvc-fv-error-text // Error message in parent div.

@@ -56,9 +56,9 @@ export interface IFormInputRules {
 }
 
 const EC = {
+  successField: 'uvc-fv-success-field',
   afterThis: 'uvc-fv-error-afterThis',
-  successField: 'uvc-fv-field-success',
-  errorField: 'uvc-fv-field-error',
+  errorField: 'uvc-fv-error-field',
   errors: 'uvc-fv-error-container',
   errorNode: 'uvc-fv-error-node',
   errorText: 'uvc-fv-error-text',
