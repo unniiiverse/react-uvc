@@ -12,34 +12,38 @@ const Popup: React.FC = (props) => {
 
   useEffect(() => {
     instance.init();
-    instance1.init();
+
+    instance.open();
+    instance.supressUserControls = true;
+
+    // instance1.init();
   }, [])
 
   return (
     <>
-      <button className="uvc-popup-trigger" data-uvc-popup-openid="uvc-popup-dialog-0" onClick={e => instance.open()}>
+      <button className="uvc-popup-trigger" data-uvc-popup-openid="uvc-popup-dialog-0" onClick={e => instance.open(true)}>
         TRIGGER
       </button>
-      <button className="uvc-popup-trigger" data-uvc-popup-openid="uvc-popup-dialog-1" onClick={e => instance1.open()}>
+      {/* <button className="uvc-popup-trigger" data-uvc-popup-openid="uvc-popup-dialog-1" onClick={e => instance1.open()}>
         TRIGGER
-      </button>
+      </button> */}
 
-      <div className="uvc-popup-close" id="uvc-popup-layer" onClick={() => instance.close()}>
+      <div className="uvc-popup-close" id="uvc-popup-layer" onClick={() => instance.close(true)}>
         <div className="uvc-popup-dialog" data-uvc-popup-id="uvc-popup-dialog-0">
-          DIALOG #0
+          {/* DIALOG #0
 
-          <button className="uvc-popup-trigger uvc-popup-close" data-uvc-popup-openid="uvc-popup-dialog-0" onClick={() => instance.close()}>
+          <button className="uvc-popup-trigger uvc-popup-close" data-uvc-popup-openid="uvc-popup-dialog-0" onClick={() => instance.close(true)}>
             TRIGGER
-          </button>
+          </button> */}
         </div>
 
-        <div className="uvc-popup-dialog" data-uvc-popup-id="uvc-popup-dialog-1">
+        {/* <div className="uvc-popup-dialog" data-uvc-popup-id="uvc-popup-dialog-1">
           DIALOG #1
 
           <button className="uvc-popup-trigger uvc-popup-close" data-uvc-popup-openid="uvc-popup-dialog-1" onClick={() => instance1.close()}>
             TRIGGER
           </button>
-        </div>
+        </div> */}
       </div>
     </>
   );

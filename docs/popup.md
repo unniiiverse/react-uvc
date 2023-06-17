@@ -55,15 +55,53 @@ const Component: React.FC = () => {
 
   return (
     <>
-      <button className="uvc-popup-trigger" data-uvc-popup-openid="uvc-popup-dialog-0" onClick={e => instance.open()}>
+      <button className="uvc-popup-trigger" data-uvc-popup-openid="uvc-popup-dialog-0" onClick={() => instance.open()}>
         TRIGGER
       </button>
 
-      <div className="uvc-popup-close" id="uvc-popup-layer" onClick={e => instance.close(e)}>
+      <div className="uvc-popup-close" id="uvc-popup-layer" onClick={() => instance.close()}>
         <div className="uvc-popup-dialog" data-uvc-popup-id="uvc-popup-dialog-0">
           DIALOG #0
 
-          <button className="uvc-popup-trigger uvc-popup-close" data-uvc-popup-openid="uvc-popup-dialog-0" onClick={e => instance.close(e)}>
+          <button className="uvc-popup-trigger uvc-popup-close" data-uvc-popup-openid="uvc-popup-dialog-0" onClick={() => instance.close()}>
+            TRIGGER
+          </button>
+        </div>
+      </div>
+    </>
+  );
+}
+```
+
+User actions will be supressed. Popup will be open.
+```tsx
+import React, { useEffect } from 'react';
+import { Popup } from 'react-uvc';
+import 'react-uvc/styles/popup.css';
+
+const Component: React.FC = () => {
+  const instance = new popup({
+    id: 'uvc-popup-dialog-0'
+  });
+
+  useEffect(() => {
+    instance.init();
+  }, [])
+
+  instance.open();
+  instance.supressUserControl = true;
+
+  return (
+    <>
+      <button className="uvc-popup-trigger" data-uvc-popup-openid="uvc-popup-dialog-0" onClick={() => instance.open(true)}>
+        TRIGGER
+      </button>
+
+      <div className="uvc-popup-close" id="uvc-popup-layer" onClick={() => instance.close(true)}>
+        <div className="uvc-popup-dialog" data-uvc-popup-id="uvc-popup-dialog-0">
+          DIALOG #0
+
+          <button className="uvc-popup-trigger uvc-popup-close" data-uvc-popup-openid="uvc-popup-dialog-0" onClick={() => instance.close(true)}>
             TRIGGER
           </button>
         </div>
@@ -82,8 +120,11 @@ interface IPopupProps {
 const instance = new popup({}: IPopupProps);
 
 instance.init() // One time initialization.
-instance.open() // Open the popup.
-instance.close(e: React.MouseEvent<HTMLButtonElement>) // Close the popup.
+instance.open(isByUser?: boolean) // Open the popup.
+instance.close(isByUser?: boolean) // Close the popup.
+
+instance.isOpen // Is menu currently open
+instance.supressUserControl // Supress opening/closing popup by user. Work only if triggers have isByUser: true
 ```
 
 ```html

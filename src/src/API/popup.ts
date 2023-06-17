@@ -9,6 +9,7 @@ export interface IParams {
 export class Popup {
   private _ready = false;
   public isOpen = false;
+  public supressUserControls = false;
   readonly instanceID = (Math.random() * 100);
   readonly id: string;
 
@@ -45,9 +46,14 @@ export class Popup {
     return;
   }
 
-  open() {
+  open(isByUser?: boolean) {
     if (!this._ready) {
       throw new Error('UVC Popup is not initialized.');
+    }
+
+    if (isByUser && this.supressUserControls) {
+      console.warn('Action supressed by script.')
+      return;
     }
 
     this.isOpen = true;
@@ -69,8 +75,13 @@ export class Popup {
     document.documentElement.setAttribute('style', 'overflow: hidden');
   }
 
-  close() {
+  close(isByUser?: boolean) {
     const layer = document.querySelector('#uvc-popup-layer')!;
+
+    if (isByUser && this.supressUserControls) {
+      console.warn('Action supressed by script.')
+      return;
+    }
 
     this.isOpen = false;
 

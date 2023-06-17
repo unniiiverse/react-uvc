@@ -47,8 +47,6 @@ export const BlImage: React.FC<IProps> = (props: IProps) => {
   const [hash] = useState(initialHash || defaultHash);
   const [isPictureReady, setIsPictureReady] = useState(false);
 
-  console.log(className)
-
   const onLoaded = () => {
     setIsPictureReady(true);
     document.querySelectorAll('.blurhash-hash').forEach(el => el.setAttribute('style', 'opacity: 0; visibilty: hidden;'));
@@ -58,7 +56,7 @@ export const BlImage: React.FC<IProps> = (props: IProps) => {
     <>
       <Blurhash hash={hash} className={`blurhash-hash`} width={'100%'} height={'100%'} />
       <motion.img
-        className={`blurhash-image ${className}`}
+        className={`blurhash-image ${className || ''}`}
         onLoad={onLoaded}
         src={src}
         loading="lazy"
@@ -68,7 +66,7 @@ export const BlImage: React.FC<IProps> = (props: IProps) => {
           opacity: { delay: 0.1, duration: 0.4 },
           filter: { delay: 0.1, duration: 0.4 }
         }}
-        alt={alt}
+        alt={alt || '...'}
       />
     </>
   )

@@ -9,4 +9,10 @@
   left: 0;
   width: 100vw;
   height: 100vh;
+  background: rgba($color: #000000, $alpha: .4);
+}
+
+.uvc-popup-layer--active {
+  visibility: visible !important;
+  opacity: 1 !important;
 }
