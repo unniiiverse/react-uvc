@@ -1,110 +1,77 @@
-# UVC-Accordion
-Accordion component.
+# Accordion
+Simple accordion component with smooth open animation.
 
 ## Usage
-Import and initialize component.
+Import and implement component.
 ```tsx
 import React, { useEffect } from 'react';
 import { Accordion } from 'react-uvc';
-import 'react-uvc/styles/accordion.css'; // Optional
+import 'react-uvc/styles/accordion.css'; // Required styles.
+
+const instance = new Accordion({
+  parent: '.uvc-accordion',
+  initialOpen: null,
+  singleOpen: false,
+});
 
 const Component: React.FC = () => {
-  const instance = new Accordion({
-    parent: 'uvc-accordion',
-    initialOpen: null,
-    singleOpen: false,
-  });
-
   useEffect(() => {
     instance.init();
   }, [])
-}
-```
-
-Create layout.
-```tsx
-<>
-  // You can split triggers and contents in different tags in .uvc-accordion.
-  <div className="uvc-accordion uvc-accordion-ex2">
-    <button className="uvc-accordion-trigger" onClick={e => instance.toggle(e)}>
-      Trigger for #1
-    </button>
-    <div className="uvc-accordion-content">
-      Content #1
-    </div>
-
-    <button className="uvc-accordion-trigger" onClick={e => instance.toggle(e)}>
-      Trigger for #2
-    </button>
-    <div className="uvc-accordion-content">
-      Content #2
-    </div>
-  <div>
-</>
-```
-
-## Examples
-Default component implementation. Single trigger opens single content.
-```tsx
-import React, { useEffect } from 'react';
-import { Accordion } from 'react-uvc';
-import 'react-uvc/styles/accordion.css';
-
-const Component: React.FC = (props) => {
-  const AccordionInstance1 = new accordion({ parent: '.uvc-accordion-ex1' })
-
-  useEffect(() => {
-    AccordionInstance1.init();
-  }, [])
 
   return (
-    <div className="Accordion">
-      <h2 className="font-bold text-[24px]">Example #1. Single trigger opens single content.</h2>
-      <div className="uvc-accordion uvc-accordion-ex1">
-        <button className="uvc-accordion-trigger" onClick={e => AccordionInstance1.call(e)}>
+    <>
+      <div className="uvc-accordion">
+        <button className="uvc-accordion-trigger" onClick={e => instance.toggle(e)}>
           Trigger for #1
         </button>
         <div className="uvc-accordion-content">
           Content #1
         </div>
 
-        <button className="uvc-accordion-trigger" onClick={e => AccordionInstance1.call(e)}>
-          Trigger for #2
-        </button>
-        <div className="uvc-accordion-content">
-          Content #2
+        <div>
+          <button className="uvc-accordion-trigger" onClick={e => instance.toggle(e)}>
+            Trigger for #2
+          </button>
+          <div className="uvc-accordion-content">
+            Content #2
+          </div>
         </div>
-      </div>
-    </div>
-  );
+      <div>
+    </>
+  )
 }
 ```
 
-Single trigger opens single content. One opened accordion per time.
+## Examples
+Single trigger opens single content. Only one accordion will open
 ```tsx
 import React, { useEffect } from 'react';
 import { Accordion } from 'react-uvc';
 import 'react-uvc/styles/accordion.css';
 
-const Component: React.FC = (props) => {
-  const AccordionInstance2 = new accordion({ parent: '.uvc-accordion-ex2', singleOpen: true })
+const instance = new Accordion({
+  parent: '.uvc-accordion-ex2',
+  singleOpen: true // Prop for only one accordion.
+})
 
+const Component: React.FC = (props) => {
   useEffect(() => {
-    AccordionInstance2.init();
+    instance.init();
   }, [])
 
   return (
     <div className="Accordion">
       <h2 className="font-bold text-[24px]">Example #2. Single trigger opens single content. One opened accordion per time.</h2>
       <div className="uvc-accordion uvc-accordion-ex2">
-        <button className="uvc-accordion-trigger" onClick={e => AccordionInstance2.call(e)}>
+        <button className="uvc-accordion-trigger" onClick={e => instance.toggle(e)}>
           Trigger for #1
         </button>
         <div className="uvc-accordion-content">
           Content #1
         </div>
 
-        <button className="uvc-accordion-trigger" onClick={e => AccordionInstance2.call(e)}>
+        <button className="uvc-accordion-trigger" onClick={e => instance.toggle(e)}>
           Trigger for #2
         </button>
         <div className="uvc-accordion-content">
@@ -116,31 +83,34 @@ const Component: React.FC = (props) => {
 }
 ```
 
-Single trigger opens single content. Accordion with one class will opened initially.
+Single trigger opens single content. Accordion with one class will opened by default.
 ```tsx
 import React, { useEffect } from 'react';
 import { Accordion } from 'react-uvc';
 import 'react-uvc/styles/accordion.css';
 
-const Component: React.FC = (props) => {
-  const AccordionInstance3 = new accordion({ parent: '.uvc-accordion-ex3', initialOpen: 'uvc-accordion-initiallyOpened' })
+const instance = new accordion({
+  parent: '.uvc-accordion-ex3',
+  defaultOpen: 'uvc-accordion-defaultOpen'
+})
 
+const Component: React.FC = (props) => {
   useEffect(() => {
-    AccordionInstance3.init();
+    instance.init();
   }, [])
 
   return (
     <div className="Accordion">
       <h2 className="font-bold text-[24px]">Example #3. Single trigger opens single content. Accordion with one class will opened initially</h2>
       <div className="uvc-accordion uvc-accordion-ex3">
-        <button className="uvc-accordion-trigger uvc-accordion-initiallyOpened" onClick={e => AccordionInstance3.call(e)}>
+        <button className="uvc-accordion-trigger uvc-accordion-defaultOpen" onClick={e => instance.toggle(e)}>
           Trigger for #1
         </button>
         <div className="uvc-accordion-content">
           Content #1
         </div>
 
-        <button className="uvc-accordion-trigger" onClick={e => AccordionInstance3.call(e)}>
+        <button className="uvc-accordion-trigger" onClick={e => instance.toggle(e)}>
           Trigger for #2
         </button>
         <div className="uvc-accordion-content">
@@ -155,9 +125,9 @@ const Component: React.FC = (props) => {
 ## API
 ```ts
 interface IAccordionProps {
-  parent: string, // Parent class/id
-  initialOpen?: null | string, // If not null will match initially opened accordion 
-  singleOpen?: boolean, // Only one accordion per time.
+  parent: string, // Parent query
+  defaultOpen?: string, // Default opened accordion query
+  singleOpen?: boolean, // Will only one accordion be open
 }
 
 const instance = new Accordion({}: IAccordionProps);

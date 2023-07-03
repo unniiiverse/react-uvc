@@ -1,10 +1,12 @@
-# UVC-BlImage
-Blurhash image component.
+# Blurred image
+Blurred hash image preview. Smoothly dissapears when image will load.
 
 ## Usage
+Create component implementation.
 ```tsx
 import React from 'react';
 import { BlImage } from 'react-uvc';
+import 'react-uvc/styles/blimage' // Required styles.
 
 const Component: React.FC = () => {
   return (
@@ -16,14 +18,17 @@ const Component: React.FC = () => {
 }
 ```
 
+
 ## Examples
 Default component implementation.
 ```tsx
-<div className="BlImage">
-  <div className="relative inline-block w-[300px] h-[300px]">
-    <BlImage src="https://images.unsplash.com/photo-1568156341007-e87ac3d64580?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=387&q=80" />
-  </div>
-</div>
+const Component: React.FC = () => {
+  return (
+    <div className="relative inline-block w-[300px] h-[300px]">
+      <BlImage src="https://images.unsplash.com/photo-1568156341007-e87ac3d64580?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=387&q=80" />
+    </div>
+  )
+}
 ```
 
 ## API

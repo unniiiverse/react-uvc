@@ -8,10 +8,10 @@ export interface IParams {
 }
 
 export class Burger {
-  private _ready = false;
-  readonly instanceID = (Math.random() * 100);
-  readonly triggerQuery: string;
-  readonly menuId: string;
+  private ready = false;
+  private instanceID = (Math.random() * 100);
+  private triggerQuery: string;
+  private menuId: string;
 
   constructor(params: IParams) {
     const { menuId, triggerQuery } = params;
@@ -20,7 +20,7 @@ export class Burger {
   }
 
   init() {
-    this._ready = true;
+    this.ready = true;
 
     const triggers = document.querySelectorAll(this.triggerQuery);
     const menu = document.querySelector(`#${this.menuId}`);
@@ -47,7 +47,7 @@ export class Burger {
   }
 
   toggle(e: React.MouseEvent<HTMLButtonElement>) {
-    if (!this._ready) {
+    if (!this.ready) {
       throw new Error('UVC Burger is not initialized.');
     }
 

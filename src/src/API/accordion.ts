@@ -2,19 +2,19 @@
 
 export interface IParams {
   parent: string
-  initialOpen?: string | null,
+  defaultOpen?: string,
   singleOpen?: boolean,
 }
 
 const AccordionPropsDefault: IParams = {
   parent: 'uvc-accordion',
-  initialOpen: null,
+  defaultOpen: '',
   singleOpen: false,
 };
 
 export class Accordion {
   private parent: string;
-  private initialOpen?: string | null;
+  private defaultOpen?: string;
   private singleOpen?: boolean;
 
   private ready: boolean;
@@ -68,7 +68,7 @@ export class Accordion {
     });
 
     triggers.forEach(el => {
-      if (this.initialOpen && el.classList.contains(this.initialOpen)) {
+      if (this.defaultOpen && (el.classList.contains(this.defaultOpen.replace('.', '')) || el.getAttribute('id') === this.defaultOpen.replace('#', ''))) {
         el.setAttribute('aria-expanded', 'true');
         el.classList.add('uvc-accordion-trigger--open');
 
@@ -80,7 +80,7 @@ export class Accordion {
     });
 
     contents.forEach(el => {
-      if (this.initialOpen && el.classList.contains(this.initialOpen)) {
+      if (this.defaultOpen && (el.classList.contains(this.defaultOpen.replace('.', '')) || el.getAttribute('id') === this.defaultOpen.replace('#', ''))) {
         el.setAttribute('aria-hidden', 'false');
         el.classList.add('uvc-accordion-content--open');
         el.setAttribute('style', `max-height: ${+el.scrollHeight + +el.getAttribute('data-uvc-accordion-content_py')!}px`);

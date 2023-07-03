@@ -1,4 +1,4 @@
-# Functions in UVC
+# Functions in react-uvc
 
 + [Show/Hide tab indexes](#tabindexes)
 

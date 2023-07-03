@@ -21,14 +21,14 @@ const Popup: React.FC = (props) => {
 
   return (
     <>
-      <button className="uvc-popup-trigger" data-uvc-popup-openid="uvc-popup-dialog-0" onClick={e => instance.open(true)}>
+      <button className="uvc-popup-trigger" data-uvc-popup-openid="uvc-popup-dialog-0" onClick={e => instance.open()}>
         TRIGGER
       </button>
       {/* <button className="uvc-popup-trigger" data-uvc-popup-openid="uvc-popup-dialog-1" onClick={e => instance1.open()}>
         TRIGGER
       </button> */}
 
-      <div className="uvc-popup-close" id="uvc-popup-layer" onClick={() => instance.close(true)}>
+      <div className="uvc-popup-close" id="uvc-popup-layer" onClick={() => instance.close()}>
         <div className="uvc-popup-dialog" data-uvc-popup-id="uvc-popup-dialog-0">
           {/* DIALOG #0
 

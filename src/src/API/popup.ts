@@ -7,11 +7,10 @@ export interface IParams {
 }
 
 export class Popup {
-  private _ready = false;
+  private ready = false;
   public isOpen = false;
   public supressUserControls = false;
-  readonly instanceID = (Math.random() * 100);
-  readonly id: string;
+  private id: string;
 
   constructor(params: IParams) {
     this.id = params.id;
@@ -42,16 +41,16 @@ export class Popup {
       throw new Error('At least one trigger or dialog is not founded.');
     }
 
-    this._ready = true;
+    this.ready = true;
     return;
   }
 
-  open(isByUser?: boolean) {
-    if (!this._ready) {
+  open(synthetic?: boolean) {
+    if (!this.ready) {
       throw new Error('UVC Popup is not initialized.');
     }
 
-    if (isByUser && this.supressUserControls) {
+    if (!synthetic && this.supressUserControls) {
       console.warn('Action supressed by script.')
       return;
     }
@@ -75,10 +74,10 @@ export class Popup {
     document.documentElement.setAttribute('style', 'overflow: hidden');
   }
 
-  close(isByUser?: boolean) {
+  close(synthetic?: boolean) {
     const layer = document.querySelector('#uvc-popup-layer')!;
 
-    if (isByUser && this.supressUserControls) {
+    if (!synthetic && this.supressUserControls) {
       console.warn('Action supressed by script.')
       return;
     }

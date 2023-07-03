@@ -5,7 +5,7 @@ import './API/styles/accordion.scss'
 const Accordion: React.FC = (props) => {
   const AccordionInstance1 = new accordion({ parent: '.uvc-accordion-ex1' })
   const AccordionInstance2 = new accordion({ parent: '.uvc-accordion-ex2', singleOpen: true })
-  const AccordionInstance3 = new accordion({ parent: '.uvc-accordion-ex3', initialOpen: 'uvc-accordion-initiallyOpened' })
+  const AccordionInstance3 = new accordion({ parent: '.uvc-accordion-ex3', defaultOpen: 'uvc-accordion-initiallyOpened' })
 
   useEffect(() => {
     AccordionInstance1.init();

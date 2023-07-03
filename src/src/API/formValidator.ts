@@ -45,14 +45,7 @@ export interface IFormInputRules {
   required?: {
     val: boolean,
     msg?: string
-  },
-  // TODO
-  // msgClasses?: {
-  //   field?: string,
-  //   node?: string,
-  //   text?: string,
-  //   success?: string,
-  // }
+  }
 }
 
 const EC = {
@@ -65,9 +58,9 @@ const EC = {
 };
 
 export class FormValidator {
-  private _ready = false;
-  readonly throw: TThrow;
-  readonly formId: string;
+  private ready = false;
+  private throw: TThrow;
+  private formId: string;
 
   constructor(params: IFormValidatorParams) {
     this.throw = params.throw;
@@ -103,15 +96,15 @@ export class FormValidator {
       })
     }
 
-    this._ready = true;
+    this.ready = true;
   }
 
   validate(e: FormEvent, inputRules: Array<IFormInputRules>, successCb?: () => void) {
-    if (!this._ready) {
+    e.preventDefault();
+
+    if (!this.ready) {
       throw new Error('Uvc-FormValidator is not initialized.');
     }
-
-    e.preventDefault();
 
     const parent = document.querySelector(`#${this.formId}`)!;
     const inputs = parent.querySelectorAll('input')!;

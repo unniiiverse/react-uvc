@@ -1,4 +1,6 @@
-# UVC-Tabs
+# WILL BE SOON
+
+<!-- # UVC-Tabs
 Tabs component.
 
 ## Usage
@@ -12,4 +14,4 @@ Tabs component.
 <hr>
 
 License: MIT <br>
-unniiiverse 2023 
+unniiiverse 2023  -->
