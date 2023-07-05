@@ -58,24 +58,24 @@ const EC = {
 };
 
 export class FormValidator {
-  private ready = false;
-  private throw: TThrow;
-  private formId: string;
+  private _ready = false;
+  private _throw: TThrow;
+  private _formId: string;
 
   constructor(params: IFormValidatorParams) {
-    this.throw = params.throw;
-    this.formId = params.formId;
+    this._throw = params.throw;
+    this._formId = params.formId;
   }
 
   init(inputRules?: Array<IFormInputRules>) {
-    const parent = document.querySelector(`#${this.formId}`);
+    const parent = document.querySelector(`#${this._formId}`);
 
     if (!parent) {
-      throw new Error(`Form (${this.formId}) is not found.`);
+      throw new Error(`Form #${this._formId} is not found.`);
     }
 
-    if (!parent.querySelector(`.${EC.errors}`) && this.throw === 'general') {
-      throw new Error(`.${EC.errors} in #${this.formId} is not found.`);
+    if (!parent.querySelector(`.${EC.errors}`) && this._throw === 'general') {
+      throw new Error(`.${EC.errors} in #${this._formId} is not found. Change throw mode to afterEach or add .${EC.errors} in form.`);
     }
 
     if (inputRules) {
@@ -96,17 +96,17 @@ export class FormValidator {
       })
     }
 
-    this.ready = true;
+    this._ready = true;
   }
 
   validate(e: FormEvent, inputRules: Array<IFormInputRules>, successCb?: () => void) {
     e.preventDefault();
 
-    if (!this.ready) {
-      throw new Error('Uvc-FormValidator is not initialized.');
+    if (!this._ready) {
+      throw new Error('FormValidator is not initialized. Use new FormValidator().init() at useEffect(() => void, [])');
     }
 
-    const parent = document.querySelector(`#${this.formId}`)!;
+    const parent = document.querySelector(`#${this._formId}`)!;
     const inputs = parent.querySelectorAll('input')!;
 
     parent.querySelectorAll(`.${EC.errorNode}`).forEach(el => el.remove());
@@ -139,37 +139,37 @@ export class FormValidator {
         switch (rule) {
           case 'minLength':
             if (input.value.length < rules[rule]!.val) {
-              throwError(this.throw, parent.querySelector(`.${EC.errors}`)!, input, createTemplateMessage(rules[rule]!, input) || `Minimum length for ${input.getAttribute('name') || input.getAttribute('type')} is ${rules[rule]!.val}. Now ${input.value.length}`);
+              throwError(this._throw, parent.querySelector(`.${EC.errors}`)!, input, createTemplateMessage(rules[rule]!, input) || `Minimum length for ${input.getAttribute('name') || input.getAttribute('type')} is ${rules[rule]!.val}. Now ${input.value.length}`);
             } else input.classList.add(EC.successField);
             break;
           case 'maxLength':
             if (input.value.length > rules[rule]!.val) {
-              throwError(this.throw, parent.querySelector(`.${EC.errors}`)!, input, createTemplateMessage(rules[rule]!, input) || `Maximum length for ${input.getAttribute('name') || input.getAttribute('type')} is ${rules[rule]!.val}. Now ${input.value.length}`);
+              throwError(this._throw, parent.querySelector(`.${EC.errors}`)!, input, createTemplateMessage(rules[rule]!, input) || `Maximum length for ${input.getAttribute('name') || input.getAttribute('type')} is ${rules[rule]!.val}. Now ${input.value.length}`);
             } else input.classList.add(EC.successField);
             break;
           case 'notEmpty':
             if (input.value.length === 0) {
-              throwError(this.throw, parent.querySelector(`.${EC.errors}`)!, input, createTemplateMessage(rules[rule]!, input) || `Field ${input.getAttribute('name') || input.getAttribute('type')} can not be empty.`);
+              throwError(this._throw, parent.querySelector(`.${EC.errors}`)!, input, createTemplateMessage(rules[rule]!, input) || `Field ${input.getAttribute('name') || input.getAttribute('type')} can not be empty.`);
             } else input.classList.add(EC.successField);
             break;
           case 'isEmail':
             if (!input.value.match(/^[\w-.]+@([\w-]+\.)+[\w-]{2,4}$/gi)) {
-              throwError(this.throw, parent.querySelector(`.${EC.errors}`)!, input, createTemplateMessage(rules[rule]!, input) || `Field ${input.getAttribute('name') || input.getAttribute('type')} is not email.`);
+              throwError(this._throw, parent.querySelector(`.${EC.errors}`)!, input, createTemplateMessage(rules[rule]!, input) || `Field ${input.getAttribute('name') || input.getAttribute('type')} is not email.`);
             } else input.classList.add(EC.successField);
             break;
           case 'isMobile':
             if (!input.value.match(/\(?\+[0-9]{1,3}\)? ?-?[0-9]{1,3} ?-?[0-9]{3,5} ?-?[0-9]{4}( ?-?[0-9]{3})?/gi)) {
-              throwError(this.throw, parent.querySelector(`.${EC.errors}`)!, input, createTemplateMessage(rules[rule]!, input) || `Field ${input.getAttribute('name') || input.getAttribute('type')} is not phone.`);
+              throwError(this._throw, parent.querySelector(`.${EC.errors}`)!, input, createTemplateMessage(rules[rule]!, input) || `Field ${input.getAttribute('name') || input.getAttribute('type')} is not phone.`);
             } else input.classList.add(EC.successField);
             break;
           case 'checked':
             if (input.checked !== rules[rule]!.val) {
-              throwError(this.throw, parent.querySelector(`.${EC.errors}`)!, input, createTemplateMessage(rules[rule]!, input) || `This field must be ${rules[rule]!.val}. Now ${input.checked}.`);
+              throwError(this._throw, parent.querySelector(`.${EC.errors}`)!, input, createTemplateMessage(rules[rule]!, input) || `This field must be ${rules[rule]!.val}. Now ${input.checked}.`);
             } else input.classList.add(EC.successField);
             break;
           case 'match':
             if (!input.value.match(rules[rule]!.val)) {
-              throwError(this.throw, parent.querySelector(`.${EC.errors}`)!, input, createTemplateMessage(rules[rule]!, input) || `Field ${input.getAttribute('name') || input.getAttribute('type')} is not match to regexp ${rules[rule]!.val}.`);
+              throwError(this._throw, parent.querySelector(`.${EC.errors}`)!, input, createTemplateMessage(rules[rule]!, input) || `Field ${input.getAttribute('name') || input.getAttribute('type')} is not match to regexp ${rules[rule]!.val}.`);
             } else input.classList.add(EC.successField);
             break;
           case 'custom':
@@ -177,7 +177,7 @@ export class FormValidator {
               rules[rule]!.val(input);
               input.classList.add(EC.successField);
             } catch (e) {
-              throwError(this.throw, parent.querySelector(`.${EC.errors}`)!, input, createTemplateMessage(rules[rule]!, input) || `${e}`);
+              throwError(this._throw, parent.querySelector(`.${EC.errors}`)!, input, createTemplateMessage(rules[rule]!, input) || `${e}`);
               console.error(e);
             }
             break;
@@ -188,6 +188,10 @@ export class FormValidator {
     if (!parent.querySelectorAll(`.${EC.errorField}`).length && successCb) {
       successCb();
     }
+  }
+
+  get ready() {
+    return this._ready;
   }
 }
 

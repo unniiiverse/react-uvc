@@ -2,17 +2,17 @@ import React, { useEffect } from "react";
 import { FormValidator, IFormInputRules } from './API/formValidator'
 import './styles/index.scss'
 
+const instance1 = new FormValidator({
+  throw: 'afterEach',
+  formId: 'form-1',
+})
+
+const instance2 = new FormValidator({
+  throw: 'afterEach',
+  formId: 'form-2',
+})
+
 const ValidationForm: React.FC = (props) => {
-  const instance1 = new FormValidator({
-    throw: 'afterEach',
-    formId: 'form-1',
-  })
-
-  const instance2 = new FormValidator({
-    throw: 'afterEach',
-    formId: 'form-2',
-  })
-
   const checkUsernameAvailability = (input: HTMLInputElement) => {
     class ValidationError extends Error {
       constructor(msg: string) {
@@ -28,6 +28,8 @@ const ValidationForm: React.FC = (props) => {
 
   const sendForm = () => {
     console.log('send form')
+    const fd = new FormData((document.querySelector('form')! as HTMLFormElement))
+    console.log(fd)
   }
 
   const rules1: IFormInputRules[] = [
@@ -58,11 +60,6 @@ const ValidationForm: React.FC = (props) => {
       }
     }
   ]
-
-  useEffect(() => {
-    // instance1.init();
-    instance2.init(rules2);
-  }, [])
 
   const rules2: IFormInputRules[] = [
     {
@@ -103,30 +100,35 @@ const ValidationForm: React.FC = (props) => {
     },
   ]
 
+  useEffect(() => {
+    // instance1.init();
+    // instance2.init(rules2);
+  }, [])
+
   return (
     <>
       {/* <form action="/" id="form-1" onSubmit={e => { instance1.validate(e, rules1, sendForm); }}>
         <div className="uvc-fv-error-container"></div>
 
         <div>
-          <input type="text" name="username" placeholder="username" id="username-validate" />
+          <input type="text" name="username" placeholder="username" id="username-validate" value={123} />
         </div>
         <div>
-          <input type="email" name="email" placeholder="email" id="email-validate" />
+          <input type="email" name="email" placeholder="email" id="email-validate" value={'123@ex.com'} />
         </div>
         <div>
-          <input type="password" name="password" placeholder="password" id="password-validate" />
+          <input type="password" name="password" placeholder="password" id="password-validate" value={'aaaa'} />
         </div>
         <div>
           <div className="uvc-fv-afterThis">
-            <input type="checkbox" name="checkbox" placeholder="checkbox" id="checkbox-validate" />
+            <input type="checkbox" name="checkbox" placeholder="checkbox" id="checkbox-validate" checked />
             <label htmlFor="checkbox-validate">Checkbox</label>
           </div>
         </div>
         <button type="submit">Submit</button>
       </form> */}
 
-      <form action="/" id="form-2" onSubmit={e => { instance2.validate(e, rules2, sendForm); }}>
+      {/* <form action="/" id="form-2" onSubmit={e => { instance2.validate(e, rules2, sendForm); }}>
         <div className="uvc-fv-error-container"></div>
 
         <div>
@@ -146,7 +148,7 @@ const ValidationForm: React.FC = (props) => {
         </div>
 
         <button type="submit">Submit</button>
-      </form>
+      </form> */}
     </>
   );
 }

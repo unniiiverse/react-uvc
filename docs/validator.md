@@ -1,26 +1,17 @@
-# UVC-Validator
-Form validation component.
+# Validator
+Flexible form validator component.
 
 ## Usage
-Import and initialize component.
+Create component implementation
 ```tsx
 import React, { useEffect } from 'react';
 import { FormValidator, IFormInputRules } from 'react-uvc';
 
-const Component: React.FC = () => {
-  const instance = new FormValidator({
-    throw: 'general' | 'afterEach',
-    formId: 'ID',
-  })
+const instance = new FormValidator({
+  throw: 'afterEach',
+  formId: 'form',
+})
 
-  useEffect(() => {
-    instance.init();
-  }, [])
-}
-```
-
-Create layout.
-```tsx
 const rules: IFormInputRules[] = [
   {
     id: 'field-id',
@@ -28,27 +19,109 @@ const rules: IFormInputRules[] = [
   }
 ]
 
-<>
-  <form action="/" id="form-id" onSubmit={e => instance.validate(e, rules)}>
-    // Use uvc-fv-error-container if you want to show messages in a signle div.  
-    <div className="uvc-fv-error-container"></div>
+const Component: React.FC = () => {
+  useEffect(() => {
+    instance.init();
+  }, [])
 
-    // Use wrapper for input if you want to show message after input.
-    <div>
-      <input type="text" name="username" placeholder="username" id="field-id" />
-    </div>
-    <button type="submit">Submit</button>
-  </form>
-</>
+  return (
+    <>
+      <form action="/" id="form-id" onSubmit={e => instance.validate(e, rules)}>
+        // Use uvc-fv-error-container if you want to show messages in a signle div.  
+        <div className="uvc-fv-error-container"></div>
+
+        // Use wrapper for input if you want to show message after input.
+        <div>
+          <input type="text" name="username" placeholder="username" id="field-id" />
+        </div>
+        <button type="submit">Submit</button>
+      </form>
+    </>
+  )
+}
 ```
 
-On submit form calls prevent default. Use instead fetch request to send form data.
+After submit form calls prevent default by default. Use fetch method to send form.
+
+## API
+```scss
+.uvc-fv-success-field // Input has valid value.
+.uvc-fv-error-field // Input has invalid value.
+.uvc-fv-error-afterThis // Special class to throw error after this block. (By default error throws after input)
+
+.uvc-fv-error-container // Container for errors while throw = general
+.uvc-fv-error-text // Error message in parent div.
+.uvc-fv-error-node // Error message after input.
+```
+
+```ts
+interface IFormValidatorProps {
+  throw: 'general' | 'afterEach',
+  formId: string
+}
+
+const instance = new FormValidator({}: IFormValidatorProps)
+
+instance.init(inputRules?: IFormInputRules[]) // Uses in useEffect(() => void, []). Initialize component. Accept validation rules, set native validation attributes (such as minLength or required) to inputs.
+instance.validate(e: FormEvent, inputRules: IFormInputRules[], successCb: () => void) // onSubmit function. Callback must be as a reference.
+instance.ready // Component ready state method
+
+interface IFormInputRules {
+  id: string,
+  minLength?: {
+    val: number,
+    msg?: string
+  },
+  maxLength?: {
+    val: number,
+    msg?: string
+  },
+  notEmpty?: {
+    val: boolean,
+    msg?: string
+  },
+  isEmail?: { // Match following regexp - /^[\w-.]+@([\w-]+\.)+[\w-]{2,4}$/gi
+    val: boolean,
+    msg?: string
+  },
+  isMobile?: { // Match following regexp - /\(?\+[0-9]{1,3}\)? ?-?[0-9]{1,3} ?-?[0-9]{3,5} ?-?[0-9]{4}( ?-?[0-9]{3})?/gi
+    val: boolean,
+    msg?: string
+  },
+  isChecked?: { // Check if checkbox checked
+    val: boolean,
+    msg?: string
+  },
+  match?: {
+    val: RegExp,
+    msg?: string
+  },
+  custom?: {
+    val: (input: HTMLInputElement) => void,
+    msg?: string
+  },
+  required?: {
+    val: boolean, // When false, validation will skip this field.
+    msg?: string
+  }
+}
+
+// Template strings
+// You can enter dynamic data in error message. TESTED ONLY WITH MIN/MAX LENGTH RULES.
+'{{required}}' // Return required field value.
+'{{current}}' // Return current field value.
+```
 
 ## Examples
 Validate username and password. If username validate fails, throw custom message.
 ```tsx
 import React, { useEffect } from 'react';
 import { FormValidator, IFormInputRules } from 'react-uvc';
+
+const instance = new FormValidator({
+  throw: 'general',
+  formId: 'form-id',
+})
 
 const rules: IFormInputRules[] = [
   {
@@ -64,11 +137,6 @@ const rules: IFormInputRules[] = [
 ]
 
 const Component: React.FC = () => {
-  const instance = new FormValidator({
-    throw: 'general',
-    formId: 'ID',
-  })
-
   useEffect(() => {
     instance.init();
   }, [])
@@ -93,12 +161,12 @@ Validate username with custom function. In this example, if username does not ma
 import React, { useEffect } from 'react';
 import { FormValidator, IFormInputRules } from 'react-uvc';
 
-const Component: React.FC = () => {
-  const instance = new FormValidator({
-    throw: 'afterEach',
-    formId: 'ID',
-  })
+const instance = new FormValidator({
+  throw: 'afterEach',
+  formId: 'form-id',
+})
 
+const Component: React.FC = () => {
   useEffect(() => {
     instance.init();
   }, [])
@@ -117,15 +185,15 @@ const Component: React.FC = () => {
   }
 
   const rules: IFormInputRules[] = [
-  {
-    id: 'username-validate',
-    custom: {
-      val: checkUsernameAvailability
-    }
-  },
-]
+    {
+      id: 'username-validate',
+      custom: {
+        val: checkUsernameAvailability
+      }
+    },
+  ]
 
-  // Send form if form validated successfully
+  // Success callback when form validate without errors.
   const sendForm = () => {
     console.log('send form')
   }
@@ -143,74 +211,6 @@ const Component: React.FC = () => {
     </>
   )
 }
-```
-
-## API
-```scss
-.uvc-fv-success-field // Input with valid value.
-.uvc-fv-error-afterThis // Special class to throw error after this block. (By default error throw after input)
-.uvc-fv-error-field // Input with invalid value.
-
-.uvc-fv-error-container // Container for errors while throw: general
-.uvc-fv-error-text // Error message in parent div.
-.uvc-fv-error-node // Error message after input.
-```
-
-```ts
-interface IFormValidatorProps {
-  throw: 'general' | 'afterEach',
-  formId: string
-}
-
-const instance = new FormValidator({}: IFormValidatorProps)
-
-instance.init(inputRules?: IFormInputRules[]) // Uses in useEffect(() => {}, []). Initialize component. Accept validation rules, set attributes (such as minLength or required) to inputs.
-instance.validate(e: FormEvent, inputRules: IFormInputRules[], successCb: () => void) // onSubmit function. Callback must be as a reference.
-
-interface IFormInputRules {
-  id: string,
-  minLength?: {
-    val: number,
-    msg?: string
-  },
-  maxLength?: {
-    val: number,
-    msg?: string
-  },
-  notEmpty?: {
-    val: boolean,
-    msg?: string
-  },
-  isEmail?: {
-    val: boolean,
-    msg?: string
-  },
-  isMobile?: {
-    val: boolean,
-    msg?: string
-  },
-  isChecked?: {
-    val: boolean,
-    msg?: string
-  },
-  match?: {
-    val: RegExp,
-    msg?: string
-  },
-  custom?: {
-    val: (input: HTMLInputElement) => void,
-    msg?: string
-  },
-  required?: {
-    val: boolean,
-    msg?: string
-  }
-}
-
-// Template strings
-// You can enter dynamic data in error message.
-'{{required}}' // Return required field value.
-'{{current}}' // Return current field value.
 ```
 
 ## Get it now
