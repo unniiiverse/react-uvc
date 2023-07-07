@@ -6,7 +6,7 @@ Import and implement component.
 ```tsx
 import React, { useEffect } from 'react';
 import { Accordion } from 'react-uvc';
-import 'react-uvc/styles/accordion.css'; // Required styles.
+import 'react-uvc/dist/css/accordion.css'; // Required styles.
 
 const instance = new Accordion({
   parent: '.uvc-accordion',

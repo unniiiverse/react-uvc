@@ -6,7 +6,7 @@ Create component implementation.
 ```tsx
 import React, { useEffect } from 'react';
 import { Popup } from 'react-uvc';
-import 'react-uvc/styles/popup.css'; // Optional styles.
+import 'react-uvc/dist/css/popup.css'; // Optional styles.
 
 const instance = new popup({
   id: 'uvc-popup-DIALOGID'
@@ -41,7 +41,7 @@ User actions will be supressed. Popup will be open by default.
 ```tsx
 import React, { useEffect } from 'react';
 import { Popup } from 'react-uvc';
-import 'react-uvc/styles/popup.css';
+import 'react-uvc/dist/css/popup.css';
 
 const instance = new popup({
   id: 'uvc-popup-dialog'

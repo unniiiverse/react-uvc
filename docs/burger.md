@@ -6,7 +6,7 @@ Import and initialize component.
 ```tsx
 import React, { useEffect } from 'react';
 import { Burger } from 'react-uvc';
-import 'react-uvc/styles/burger.css'; // Optional
+import 'react-uvc/dist/css/burger.css'; // Optional
 
 const Component: React.FC = () => {
   const instance = new Burger({
@@ -36,11 +36,11 @@ Create layout.
 ```
 
 ## Examples
-Default component implementation.
+Menu will be open by default.
 ```tsx
 import React, { useEffect } from "react";
 import burger from './API/burger';
-import './API/styles/burger.scss'
+import 'react-uvc/dist/css/burger.css'
 
 const Burger: React.FC = (props) => {
   const instance = new burger({
@@ -50,6 +50,7 @@ const Burger: React.FC = (props) => {
 
   useEffect(() => {
     instance.init();
+    instance.toggle(null, true)
   }, [])
 
   return (
@@ -78,7 +79,7 @@ interface IBurgerProps {
 const instance = new Burger({}: IBurgerProps);
 
 instance.init() // One time initialization.
-instance.toggle(e: React.MouseEvent<HTMLButtonElement>) // Change burger visibility.
+instance.toggle(e: React.MouseEvent<HTMLButtonElement> | null, syntheticTo?: boolean) // Change burger visibility. If e = null, isOpen will be equal to syntheticTo
 ```
 
 ```scss

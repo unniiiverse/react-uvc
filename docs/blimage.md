@@ -6,7 +6,7 @@ Create component implementation.
 ```tsx
 import React from 'react';
 import { BlImage } from 'react-uvc';
-import 'react-uvc/styles/blimage' // Required styles.
+import 'react-uvc/dist/css/blimage.css' // Required styles.
 
 const Component: React.FC = () => {
   return (
@@ -22,6 +22,10 @@ const Component: React.FC = () => {
 ## Examples
 Default component implementation.
 ```tsx
+import React from 'react';
+import { BlImage } from 'react-uvc';
+import 'react-uvc/dist/css/blimage.css' // Required styles.
+
 const Component: React.FC = () => {
   return (
     <div className="relative inline-block w-[300px] h-[300px]">

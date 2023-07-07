@@ -19,3 +19,13 @@ export const showTabindexes = () => {
     }
   });
 };
+
+export class ReactUvcError extends Error {
+  constructor(props) {
+    const { msg, at } = props;
+
+    super(msg);
+
+    this.name = `react-uvc <${at}>`;
+  }
+}

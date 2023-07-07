@@ -21,3 +21,20 @@ export const showTabindexes = () => {
     }
   });
 };
+
+
+
+interface IReactUvcError {
+  msg: string,
+  at: 'Accordion' | 'Burger' | 'FormValidator' | 'BlImage' | 'Popup' | 'Tabs' | 'Ticker' | 'Functions'
+}
+
+export class ReactUvcError extends Error {
+  constructor(props: IReactUvcError) {
+    const { msg, at } = props;
+
+    super(msg);
+
+    this.name = `react-uvc <${at}>`;
+  }
+}
