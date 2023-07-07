@@ -1,25 +1,25 @@
 /* eslint-disable @typescript-eslint/no-non-null-assertion, no-unused-vars */
 
-import { hideTabindexes, showTabindexes } from './functions.js';
+import { hideTabindexes, showTabindexes, ReactUvcError } from './functions.js';
 
 export interface IParams {
   id: string,
 }
 
 export class Popup {
-  private ready = false;
+  private _ready = false;
+  private _id: string;
   public isOpen = false;
   public supressUserControls = false;
-  private id: string;
 
   constructor(params: IParams) {
-    this.id = params.id;
+    this._id = params.id;
   }
 
   init() {
     const layer = document.querySelector('#uvc-popup-layer')!;
-    const triggers = document.querySelectorAll(`[data-uvc-popup-openid="${this.id}"]`)!;
-    const dialog = document.querySelector(`[data-uvc-popup-id="${this.id}"]`)!;
+    const triggers = document.querySelectorAll(`[data-uvc-popup-openid="${this._id}"]`)!;
+    const dialog = document.querySelector(`[data-uvc-popup-id="${this._id}"]`)!;
 
     document.querySelectorAll('.uvc-popup-close').forEach(el => {
       el.setAttribute('tabindex', '0');
@@ -38,16 +38,16 @@ export class Popup {
     layer.setAttribute('aria-hidden', 'true');
 
     if (!triggers.length || !dialog) {
-      throw new Error('At least one trigger or dialog is not founded.');
+      throw new ReactUvcError({ msg: 'At least one trigger or dialog is not found.', at: 'Popup' });
     }
 
-    this.ready = true;
+    this._ready = true;
     return;
   }
 
   open(synthetic?: boolean) {
-    if (!this.ready) {
-      throw new Error('UVC Popup is not initialized.');
+    if (!this._ready) {
+      throw new ReactUvcError({ msg: 'Component is not initialized. Use new Popup().init() at useEffect(() => void, [])', at: 'Popup' });
     }
 
     if (!synthetic && this.supressUserControls) {
@@ -58,8 +58,8 @@ export class Popup {
     this.isOpen = true;
 
     const layer = document.querySelector('#uvc-popup-layer')!;
-    const triggers = document.querySelectorAll(`[data-uvc-popup-openid="${this.id}"]`)!;
-    const dialog = document.querySelector(`[data-uvc-popup-id="${this.id}"]`)!;
+    const triggers = document.querySelectorAll(`[data-uvc-popup-openid="${this._id}"]`)!;
+    const dialog = document.querySelector(`[data-uvc-popup-id="${this._id}"]`)!;
 
     hideTabindexes(/uvc-popup-close/gi);
     triggers.forEach(el => {

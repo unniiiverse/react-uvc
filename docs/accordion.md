@@ -48,7 +48,7 @@ Single trigger opens single content. Only one accordion will open
 ```tsx
 import React, { useEffect } from 'react';
 import { Accordion } from 'react-uvc';
-import 'react-uvc/styles/accordion.css';
+import 'react-uvc/dist/css/accordion.css';
 
 const instance = new Accordion({
   parent: '.uvc-accordion-ex2',
@@ -87,7 +87,7 @@ Single trigger opens single content. Accordion with one class will opened by def
 ```tsx
 import React, { useEffect } from 'react';
 import { Accordion } from 'react-uvc';
-import 'react-uvc/styles/accordion.css';
+import 'react-uvc/dist/css/accordion.css';
 
 const instance = new accordion({
   parent: '.uvc-accordion-ex3',

@@ -13,8 +13,8 @@ const Popup: React.FC = (props) => {
   useEffect(() => {
     instance.init();
 
-    instance.open();
-    instance.supressUserControls = true;
+    // instance.open();
+    // instance.supressUserControls = true;
 
     // instance1.init();
   }, [])
@@ -30,11 +30,11 @@ const Popup: React.FC = (props) => {
 
       <div className="uvc-popup-close" id="uvc-popup-layer" onClick={() => instance.close()}>
         <div className="uvc-popup-dialog" data-uvc-popup-id="uvc-popup-dialog-0">
-          {/* DIALOG #0
+          DIALOG #0
 
           <button className="uvc-popup-trigger uvc-popup-close" data-uvc-popup-openid="uvc-popup-dialog-0" onClick={() => instance.close(true)}>
             TRIGGER
-          </button> */}
+          </button>
         </div>
 
         {/* <div className="uvc-popup-dialog" data-uvc-popup-id="uvc-popup-dialog-1">

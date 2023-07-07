@@ -1,6 +1,7 @@
 /* eslint-disable @typescript-eslint/no-non-null-assertion, no-unused-vars */
 
 import { FormEvent } from 'react';
+import { ReactUvcError } from './functions';
 
 export type TThrow = 'general' | 'afterEach';
 export interface IFormValidatorParams {
@@ -71,11 +72,11 @@ export class FormValidator {
     const parent = document.querySelector(`#${this._formId}`);
 
     if (!parent) {
-      throw new Error(`Form #${this._formId} is not found.`);
+      throw new ReactUvcError({ msg: `Form #${this._formId} is not found.`, at: 'FormValidator' });
     }
 
     if (!parent.querySelector(`.${EC.errors}`) && this._throw === 'general') {
-      throw new Error(`.${EC.errors} in #${this._formId} is not found. Change throw mode to afterEach or add .${EC.errors} in form.`);
+      throw new ReactUvcError({ msg: `.${EC.errors} in #${this._formId} is not found. Change throw mode to afterEach or add .${EC.errors} in form.`, at: 'FormValidator' });
     }
 
     if (inputRules) {
@@ -103,7 +104,7 @@ export class FormValidator {
     e.preventDefault();
 
     if (!this._ready) {
-      throw new Error('FormValidator is not initialized. Use new FormValidator().init() at useEffect(() => void, [])');
+      throw new ReactUvcError({ msg: 'Component is not initialized. Use new FormValidator().init() at useEffect(() => void, [])', at: 'FormValidator' });
     }
 
     const parent = document.querySelector(`#${this._formId}`)!;

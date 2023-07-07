@@ -3,11 +3,11 @@
     max-height: 0;
     opacity: 0;
     visibility: hidden;
-    transition: .2s ease-in-out all;
+    will-change: opacity, max-height;
 
-    // &--open {
-    //   opacity: 1;
-    //   visibility: visible;
-    // }
+    &--open {
+      opacity: 1;
+      visibility: visible;
+    }
   }
 }

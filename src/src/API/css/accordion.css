@@ -1,1 +1,1 @@
-.uvc-accordion-content{max-height:0;opacity:0;visibility:hidden;transition:.2s ease-in-out all}
+.uvc-accordion-content{max-height:0;opacity:0;visibility:hidden;will-change:opacity,max-height}.uvc-accordion-content--open{opacity:1;visibility:visible}

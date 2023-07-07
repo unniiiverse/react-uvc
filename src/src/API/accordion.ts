@@ -13,16 +13,15 @@ const AccordionPropsDefault: IParams = {
 };
 
 export class Accordion {
-  private parent: string;
-  private defaultOpen?: string;
-  private singleOpen?: boolean;
-
-  private ready: boolean;
-  private instanceID = String((Math.random() * 1000)).split('.')[0];
+  private _parent: string;
+  private _defaultOpen?: string;
+  private _singleOpen?: boolean;
+  private _ready: boolean;
+  private _instanceID = String((Math.random() * 1000)).split('.')[0];
 
   constructor(props: IParams) {
-    this.ready = false;
-    this.parent = AccordionPropsDefault.parent;
+    this._ready = false;
+    this._parent = AccordionPropsDefault.parent;
 
     for (const key in AccordionPropsDefault) {
       this[key] = props[key] || AccordionPropsDefault[key];
@@ -30,12 +29,12 @@ export class Accordion {
   }
 
   init() {
-    if (this.ready) {
+    if (this._ready) {
       console.error('[WARN] Component is already initialized.');
       return;
     }
 
-    const parent = document.querySelector(this.parent);
+    const parent = document.querySelector(this._parent);
 
     if (!parent) {
       throw new Error('Parent class is not finded.');
@@ -52,8 +51,8 @@ export class Accordion {
       el.setAttribute('tabIndex', '0');
       el.setAttribute('aria-expanded', 'false');
 
-      el.setAttribute('id', `uvc-accordion-triggerID--${i}-${this.instanceID}`);
-      el.setAttribute('aria-controls', `uvc-accordion-contentID--${i}-${this.instanceID}`);
+      el.setAttribute('id', `uvc-accordion-triggerID--${i}-${this._instanceID}`);
+      el.setAttribute('aria-controls', `uvc-accordion-contentID--${i}-${this._instanceID}`);
     });
 
     contents.forEach((el, i) => {
@@ -63,12 +62,12 @@ export class Accordion {
       el.setAttribute('data-uvc-accordion-content_py', `${+window.getComputedStyle(el).paddingTop.replace('px', '') + +window.getComputedStyle(el).paddingBottom.replace('px', '')}`);
       el.setAttribute('style', 'padding-top: 0; padding-bottom: 0');
 
-      el.setAttribute('id', `uvc-accordion-contentID--${i}-${this.instanceID}`);
-      el.setAttribute('aria-labledby', `uvc-accordion-triggerID--${i}-${this.instanceID}`);
+      el.setAttribute('id', `uvc-accordion-contentID--${i}-${this._instanceID}`);
+      el.setAttribute('aria-labledby', `uvc-accordion-triggerID--${i}-${this._instanceID}`);
     });
 
     triggers.forEach(el => {
-      if (this.defaultOpen && (el.classList.contains(this.defaultOpen.replace('.', '')) || el.getAttribute('id') === this.defaultOpen.replace('#', ''))) {
+      if (this._defaultOpen && (el.classList.contains(this._defaultOpen.replace('.', '')) || el.getAttribute('id') === this._defaultOpen.replace('#', ''))) {
         el.setAttribute('aria-expanded', 'true');
         el.classList.add('uvc-accordion-trigger--open');
 
@@ -80,7 +79,7 @@ export class Accordion {
     });
 
     contents.forEach(el => {
-      if (this.defaultOpen && (el.classList.contains(this.defaultOpen.replace('.', '')) || el.getAttribute('id') === this.defaultOpen.replace('#', ''))) {
+      if (this._defaultOpen && (el.classList.contains(this._defaultOpen.replace('.', '')) || el.getAttribute('id') === this._defaultOpen.replace('#', ''))) {
         el.setAttribute('aria-hidden', 'false');
         el.classList.add('uvc-accordion-content--open');
         el.setAttribute('style', `max-height: ${+el.scrollHeight + +el.getAttribute('data-uvc-accordion-content_py')!}px`);
@@ -91,16 +90,16 @@ export class Accordion {
       }
     });
 
-    this.ready = true;
+    this._ready = true;
     return;
   }
 
   toggle(e: React.MouseEvent<HTMLButtonElement>) {
-    if (!this.ready) {
+    if (!this._ready) {
       throw new Error('Component is not initialized.');
     }
 
-    const parent = document.querySelector(this.parent)!;
+    const parent = document.querySelector(this._parent)!;
 
     const self = (e.target as HTMLElement).closest('.uvc-accordion-trigger')!;
     const content = document.querySelector(`#${self.getAttribute('aria-controls')}`)!;
@@ -109,7 +108,7 @@ export class Accordion {
     const contents = parent.querySelectorAll('.uvc-accordion-content');
 
     if (isOpened) {
-      if (this.singleOpen) {
+      if (this._singleOpen) {
         triggers.forEach(el => {
           el.classList.remove('uvc-accordion-trigger--open');
           content.classList.remove('uvc-accordion-content--open');
