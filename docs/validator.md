@@ -101,7 +101,7 @@ interface IFormInputRules {
     msg?: string
   },
   required?: {
-    val: boolean, // When false, validation will skip this field.
+    val: boolean, // By default equal to true. False will skip this field.
     msg?: string
   }
 }
