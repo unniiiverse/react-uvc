@@ -6,13 +6,64 @@
       &-node {
         background-color: red;
       }
-  
+
       &-text {
         color: red;
       }
 
       &-field {
         border: 1px solid red;
+      }
+    }
+  }
+
+  &-tabs {
+    &_actions {}
+
+    &-contents {}
+
+    &-tab {
+      &_action {
+        &--active {}
+      }
+
+      &_content {
+        opacity: 0;
+        visibility: hidden;
+        position: absolute;
+
+        &--active {
+          opacity: 1;
+          visibility: visible;
+          position: relative;
+        }
+      }
+    }
+  }
+}
+
+//
+
+.uvc {
+  &-tabs {
+    &-actions {
+      display: flex;
+      gap: 12px
+    }
+
+    &-contents {
+      display: flex;
+    }
+
+    &-tab {
+      &_action {
+        &--active {
+          background: red;
+        }
+      }
+
+      &_content {
+        transition: .2s ease-in-out;
       }
     }
   }
