@@ -9,8 +9,8 @@ import { Accordion } from 'react-uvc';
 import 'react-uvc/dist/css/accordion.css'; // Required styles.
 
 const instance = new Accordion({
-  parent: '.uvc-accordion',
-  initialOpen: null,
+  parentId: 'uvc-accordion',
+  initialOpen: '.CLASS_NAME',
   singleOpen: false,
 });
 
@@ -21,7 +21,7 @@ const Component: React.FC = () => {
 
   return (
     <>
-      <div className="uvc-accordion">
+      <div className="uvc-accordion" id="uvc-accordion">
         <button className="uvc-accordion-trigger" onClick={e => instance.toggle(e)}>
           Trigger for #1
         </button>
@@ -51,8 +51,8 @@ import { Accordion } from 'react-uvc';
 import 'react-uvc/dist/css/accordion.css';
 
 const instance = new Accordion({
-  parent: '.uvc-accordion-ex2',
-  singleOpen: true // Prop for only one accordion.
+  parentId: 'uvc-accordion-ex2',
+  singleOpen: true // Prop for only one accordion open.
 })
 
 const Component: React.FC = (props) => {
@@ -63,7 +63,7 @@ const Component: React.FC = (props) => {
   return (
     <div className="Accordion">
       <h2 className="font-bold text-[24px]">Example #2. Single trigger opens single content. One opened accordion per time.</h2>
-      <div className="uvc-accordion uvc-accordion-ex2">
+      <div id="uvc-accordion uvc-accordion-ex2">
         <button className="uvc-accordion-trigger" onClick={e => instance.toggle(e)}>
           Trigger for #1
         </button>
@@ -90,8 +90,8 @@ import { Accordion } from 'react-uvc';
 import 'react-uvc/dist/css/accordion.css';
 
 const instance = new accordion({
-  parent: '.uvc-accordion-ex3',
-  defaultOpen: 'uvc-accordion-defaultOpen'
+  parentId: 'uvc-accordion-ex3',
+  defaultOpen: '.uvc-accordion-defaultOpen'
 })
 
 const Component: React.FC = (props) => {
@@ -102,7 +102,7 @@ const Component: React.FC = (props) => {
   return (
     <div className="Accordion">
       <h2 className="font-bold text-[24px]">Example #3. Single trigger opens single content. Accordion with one class will opened initially</h2>
-      <div className="uvc-accordion uvc-accordion-ex3">
+      <div id="uvc-accordion uvc-accordion-ex3">
         <button className="uvc-accordion-trigger uvc-accordion-defaultOpen" onClick={e => instance.toggle(e)}>
           Trigger for #1
         </button>
@@ -125,7 +125,7 @@ const Component: React.FC = (props) => {
 ## API
 ```ts
 interface IAccordionProps {
-  parent: string, // Parent query
+  parentId: string, // Parent id
   defaultOpen?: string, // Default opened accordion query
   singleOpen?: boolean, // Will only one accordion be open
 }

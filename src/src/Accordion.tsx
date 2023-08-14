@@ -3,9 +3,9 @@ import accordion from './API/accordion';
 import './API/styles/accordion.scss'
 
 const Accordion: React.FC = (props) => {
-  const AccordionInstance1 = new accordion({ parent: '.uvc-accordion-ex1' })
-  const AccordionInstance2 = new accordion({ parent: '.uvc-accordion-ex2', singleOpen: true })
-  const AccordionInstance3 = new accordion({ parent: '.uvc-accordion-ex3', defaultOpen: 'uvc-accordion-initiallyOpened' })
+  const AccordionInstance1 = new accordion({ parentId: 'uvc-accordion-ex1' })
+  const AccordionInstance2 = new accordion({ parentId: 'uvc-accordion-ex2', singleOpen: true })
+  const AccordionInstance3 = new accordion({ parentId: 'uvc-accordion-ex3', defaultOpen: '.uvc-accordion-initiallyOpened' })
 
   useEffect(() => {
     AccordionInstance1.init();
@@ -16,7 +16,7 @@ const Accordion: React.FC = (props) => {
   return (
     <div className="Accordion">
       <h2 className="font-bold text-[24px]">Example #1. Single trigger opens single content.</h2>
-      <div className="uvc-accordion uvc-accordion-ex1">
+      <div className="uvc-accordion" id="uvc-accordion-ex1">
         <button className="uvc-accordion-trigger" onClick={e => AccordionInstance1.toggle(e)}>
           Trigger for #1
         </button>
@@ -37,7 +37,7 @@ const Accordion: React.FC = (props) => {
       <br />
 
       <h2 className="font-bold text-[24px]">Example #2. Single trigger opens single content. One opened accordion per time.</h2>
-      <div className="uvc-accordion uvc-accordion-ex2">
+      <div className="uvc-accordion" id="uvc-accordion-ex2">
         <button className="uvc-accordion-trigger" onClick={e => AccordionInstance2.toggle(e)}>
           Trigger for #1
         </button>
@@ -58,7 +58,7 @@ const Accordion: React.FC = (props) => {
       <br />
 
       <h2 className="font-bold text-[24px]">Example #3. Single trigger opens single content. Accordion with one class will opened initially</h2>
-      <div className="uvc-accordion uvc-accordion-ex3">
+      <div className="uvc-accordion" id="uvc-accordion-ex3">
         <button className="uvc-accordion-trigger uvc-accordion-initiallyOpened" onClick={e => AccordionInstance3.toggle(e)}>
           Trigger for #1
         </button>

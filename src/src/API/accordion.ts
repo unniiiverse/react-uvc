@@ -1,19 +1,19 @@
 /* eslint-disable @typescript-eslint/no-non-null-assertion */
 
 export interface IParams {
-  parent: string
+  parentId: string
   defaultOpen?: string,
   singleOpen?: boolean,
 }
 
 const AccordionPropsDefault: IParams = {
-  parent: 'uvc-accordion',
-  defaultOpen: '',
+  parentId: 'uvc-accordion',
+  defaultOpen: '.uvc-accordion-defaultOpen',
   singleOpen: false,
 };
 
 export class Accordion {
-  private _parent: string;
+  private _parentId: string;
   private _defaultOpen?: string;
   private _singleOpen?: boolean;
   private _ready: boolean;
@@ -21,10 +21,10 @@ export class Accordion {
 
   constructor(props: IParams) {
     this._ready = false;
-    this._parent = AccordionPropsDefault.parent;
+    this._parentId = AccordionPropsDefault.parentId;
 
     for (const key in AccordionPropsDefault) {
-      this[key] = props[key] || AccordionPropsDefault[key];
+      this[`_${key}`] = props[key] || AccordionPropsDefault[key];
     }
   }
 
@@ -34,17 +34,17 @@ export class Accordion {
       return;
     }
 
-    const parent = document.querySelector(this._parent);
+    const parent = document.querySelector(`#${this._parentId}`);
 
     if (!parent) {
-      throw new Error('Parent class is not finded.');
+      throw new Error('Parent is not found.');
     }
 
     const triggers = parent.querySelectorAll('.uvc-accordion-trigger');
     const contents = parent.querySelectorAll('.uvc-accordion-content');
 
     if (!triggers.length || !contents.length) {
-      throw new Error('.uvc-accordion-trigger or .uvc-accordion-content is not finded.');
+      throw new Error('.uvc-accordion-trigger or .uvc-accordion-content are not found.');
     }
 
     triggers.forEach((el, i) => {
@@ -99,7 +99,7 @@ export class Accordion {
       throw new Error('Component is not initialized.');
     }
 
-    const parent = document.querySelector(this._parent)!;
+    const parent = document.querySelector(`#${this._parentId}`)!;
 
     const self = (e.target as HTMLElement).closest('.uvc-accordion-trigger')!;
     const content = document.querySelector(`#${self.getAttribute('aria-controls')}`)!;
