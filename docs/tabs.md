@@ -1,4 +1,4 @@
-# UVC-Tabs
+# Tabs
 Tabs component.
 
 ## Usage
@@ -96,6 +96,9 @@ interface ITabsParams {
 ```
 
 ## Get it now
+```
+npm i react-uvc
+```
 
 <hr>
 

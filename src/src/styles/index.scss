@@ -67,4 +67,32 @@
       }
     }
   }
+
+  &-ticker {
+    &-container {
+      background: red;
+      overflow-x: hidden;
+    }
+
+    &-collection {
+      background: blue;
+      
+      &--1 {
+        background: aqua;
+      }
+
+      &--2 {
+        background: green;
+      }
+      
+      &--3 {
+        background: brown;
+      }
+    }
+    
+    &-item {
+      margin: 0 4px;
+      background: white;
+    }
+  }
 }

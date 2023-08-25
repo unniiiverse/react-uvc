@@ -1,0 +1,16 @@
+.uvc-ticker {
+  &-container {
+    display: flex;
+    position: relative;
+    width: 100%;
+  }
+
+  &-collection {
+    display: inline-flex;
+    flex-shrink: 0;
+  }
+
+  &-item {
+    flex-shrink: 0;
+  }
+}
