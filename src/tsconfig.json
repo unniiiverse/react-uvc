@@ -4,7 +4,8 @@
     "lib": [
       "dom",
       "dom.iterable",
-      "esnext"
+      "esnext",
+      "WebWorker"
     ],
     "allowJs": true,
     "skipLibCheck": true,
@@ -23,5 +24,9 @@
   },
   "include": [
     "src"
-, "src/.OLD/test", "src/.OLD/AccordionC.tsx", "src/.OLD/Burger.tsx", "src/.OLD/Popup.tsx", "src/.OLD/Tabs.tsx", "src/.OLD/Core.ts", "../index.ts", "src/API/index.ts", "index.d.ts"  ]
+  ],
+  "exclude": [
+    "node_modules/",
+    "build",
+  ]
 }

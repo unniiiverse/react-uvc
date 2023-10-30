@@ -1,9 +1,10 @@
-import React from 'react';
 import ReactDOM from 'react-dom/client';
+import { Provider } from 'react-redux';
 import { BrowserRouter } from 'react-router-dom';
+
 import Router from './Router';
 
-import './styles/index.scss';
+import './styles/general.scss';
 import './styles/tailwind.css';
 
 ReactDOM.createRoot(document.getElementById('root') as HTMLElement).render(

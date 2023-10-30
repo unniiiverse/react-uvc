@@ -1,10 +1,7 @@
 src/*
-!src/index.ts
-!src/index.d.ts
 tsconfig.json
 nodemon.json
 .eslintrc
 .eslintignore
 .git
 docs
-src/public

@@ -1,17 +1,24 @@
 {
   "name": "react-uvc",
-  "version": "1.7.1",
-  "description": "Bundle of UVC react components.",
+  "version": "2.0.0",
+  "description": "Pretty react components.",
   "main": "dist/index.js",
   "types": "dist/types/index.d.ts",
   "type": "module",
   "scripts": {
-    "build": "tsc --rootDir src/src/API --outDir dist/ --target ES6 --module es6 --declarationDir dist/types && copyfiles -f ./src/src/API/css/*.css dist/css"
+    "build": "tsc && npx ts-node ./changeExt.ts && copyfiles -f ./src/src/core/css/*.css dist/css"
   },
   "keywords": [
     "uvc",
     "react",
-    "react-components"
+    "react-components",
+    "form validation",
+    "accordion",
+    "popup",
+    "burger",
+    "image sceleton",
+    "tabs",
+    "ticker"
   ],
   "author": "unniiiverse<unniiiverse.github.io>",
   "devDependencies": {
@@ -19,6 +26,7 @@
     "@typescript-eslint/eslint-plugin": "^5.54.1",
     "@typescript-eslint/parser": "^5.54.1",
     "eslint": "^8.36.0",
+    "filehound": "^1.17.6",
     "ts-node": "^10.9.1",
     "typescript": "^4.9.5"
   },
