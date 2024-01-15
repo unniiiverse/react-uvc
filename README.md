@@ -1,3 +1,6 @@
+# 🛑 DEPRECATED 🛑
+## react-uvc modules are now separated and react-uvc is no longer supported.
+
 # react-uvc
 Easy and flexible components for react. Includes: 
 + [Tab indexes management](https://github.com/unniiiverse/react-uvc/tree/main/docs/functions.md#tabindexes)
